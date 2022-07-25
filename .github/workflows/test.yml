@@ -1,0 +1,54 @@
+
+name: Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - '*'
+    paths:
+      - '**.sh'
+      - '.github/workflows/test.yml'
+      - 'index.js'
+      - 'conf/*'
+      - 'hooks/*'
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        release: [ "6.2.2", ""]
+    runs-on: macos-12
+    name: A job to run test DragonflyBSD
+    env:
+      MYTOKEN : ${{ secrets.MYTOKEN }}
+      MYTOKEN2: "value2"
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test in DragonflyBSD
+      id: test
+      uses: vmactions/dragonflybsd-vm@main
+      with:
+        envs: 'MYTOKEN MYTOKEN2'
+        prepare: |
+          pkg install -y socat
+        mem: 2048
+        release: ${{ matrix.release }}
+        nat: |
+          "8080": "80"
+          "8443": "443"
+          udp:"8081": "80"
+        usesh: true
+        run: |
+          if [ -n "test" ]; then
+            echo "false"
+          fi
+          if [ "test" ]; then
+            echo "test"
+          fi
+          pwd
+          ls -lah
+          whoami
+          env
+          uname -a
+          echo "OK"
