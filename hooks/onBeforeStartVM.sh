@@ -19,6 +19,9 @@ bash run.sh startVM
 
 
 #4. login as root
+bash vbox.sh waitForText $VM_OS_NAME "Default: F"  5
+bash vbox.sh enter $VM_OS_NAME
+
 bash vbox.sh waitForText $VM_OS_NAME "Booting in"
 bash vbox.sh enter $VM_OS_NAME
 
