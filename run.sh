@@ -176,6 +176,15 @@ onStarted() {
 }
 
 
+onBeforeStartVM() {
+  #run in the host machine, the VM is imported, but not booted yet.
+  if [ -e "hooks/onBeforeStartVM.sh" ]; then
+    bash hooks/onBeforeStartVM.sh
+  fi
+}
+
+
+
 
 "$@"
 
