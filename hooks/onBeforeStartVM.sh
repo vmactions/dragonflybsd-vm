@@ -6,7 +6,7 @@ set -e
 export VM_OS_NAME
 
 #1. download ISO
-if [ !-e "$VM_OS_NAME.iso" ]; then
+if [ ! -e "$VM_OS_NAME.iso" ]; then
   echo "====> Downloading $VM_ISO_LINK"
   wget -q -O $VM_OS_NAME.iso $VM_ISO_LINK
 fi
