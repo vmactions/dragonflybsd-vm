@@ -5,11 +5,8 @@ on:
     branches:
       - 'main'
     paths:
-      - '.github/tpl/*'
       - '.github/data/*'
       - '.github/workflows/generate.yml'
-      - '!.github/tpl/README.tpl.md'
-
 
     
 jobs:
