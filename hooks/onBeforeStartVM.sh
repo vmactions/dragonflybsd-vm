@@ -7,8 +7,10 @@ export VM_OS_NAME
 
 #1. download ISO
 if [ ! -e "$VM_OS_NAME.iso" ]; then
-  echo "====> Downloading $VM_ISO_LINK"
-  wget -q -O $VM_OS_NAME.iso $VM_ISO_LINK
+  echo "====> Downloading $VM_ISO_LINK.bz2"
+  wget -q -O $VM_OS_NAME.iso.bz2 $VM_ISO_LINK.bz2
+  echo "====> Extracting $VM_OS_NAME.iso.bz2"
+  bzip2 -d $VM_OS_NAME.iso.bz2
 fi
 ls -lah
 
