@@ -24,18 +24,7 @@ bash run.sh startVM
 
 
 #4. login as root
-echo "====> Wait for Default: F"
-if bash vbox.sh waitForText $VM_OS_NAME "Default: F" 5 ; then
-  echo "====> OK, enter"
-  bash vbox.sh enter
-fi
-
-
-echo "====> Wait for Booting in"
-if bash vbox.sh waitForText $VM_OS_NAME "Booting in" 5 ; then
-  echo "====> OK, enter"
-  bash vbox.sh enter
-fi
+. hooks/waitForBooting.sh
 
 echo "====> waitForLoginTag"
 bash run.sh waitForLoginTag
