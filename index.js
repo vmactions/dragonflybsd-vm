@@ -70,7 +70,7 @@ async function setup(nat, mem) {
 
     core.info("First boot");
 
-
+    await shell("bash run.sh waitForBooting");
 
     await shell("bash run.sh waitForLoginTag");
 

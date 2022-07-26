@@ -190,7 +190,15 @@ onBeforeStartVM() {
   fi
 }
 
-
+waitForBooting() {
+  #press enter for grub booting to speedup booting
+  if [ -e "hooks/waitForBooting.sh" ]; then
+    echo "Run hooks/waitForBooting.sh"
+    . hooks/waitForBooting.sh
+  else
+    echo "Skip hooks/waitForBooting.sh"
+  fi
+}
 
 
 "$@"
