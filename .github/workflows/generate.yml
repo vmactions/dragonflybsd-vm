@@ -46,6 +46,7 @@ jobs:
           datafile: .github/data/datafile.ini
           files: |
             base-vm/.github/tpl/test.tpl.yml : .github/workflows/test.yml
+            base-vm/.github/tpl/manual.tpl.yml : .github/workflows/manual.yml
             base-vm/.github/dependabot.yml : .github/dependabot.yml
             base-vm/.github/FUNDING.yml : .github/FUNDING.yml
             base-vm/.github/workflows/readme.yml : .github/workflows/readme.yml
@@ -64,6 +65,7 @@ jobs:
           pull: '--rebase --autostash '
           add: |
             .github/workflows/readme.yml
+            .github/workflows/manual.yml
             .github/workflows/test.yml
             .github/tpl/README.tpl.md
             .github/dependabot.yml
