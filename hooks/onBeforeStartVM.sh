@@ -4,9 +4,10 @@
 set -e
 
 #1. download ISO
-echo "Downloading $VM_ISO_LINK"
-wget -q -O $VM_OS_NAME.iso $VM_ISO_LINK
-
+if [ !-e "$VM_OS_NAME.iso" ]; then
+  echo "Downloading $VM_ISO_LINK"
+  wget -q -O $VM_OS_NAME.iso $VM_ISO_LINK
+fi
 ls -lah
 
 
@@ -22,16 +23,17 @@ bash run.sh startVM
 
 #4. login as root
 echo "Wait for Default: F"
-bash vbox.sh waitForText $VM_OS_NAME "Default: F"
+if bash vbox.sh waitForText $VM_OS_NAME "Default: F" 5 ; then
+  echo "OK, enter"
+  bash vbox.sh enter $VM_OS_NAME
+fi
 
-echo "OK, enter"
-bash vbox.sh enter $VM_OS_NAME
 
 echo "Wait for Booting in"
-bash vbox.sh waitForText $VM_OS_NAME "Booting in"
-
-echo "OK, enter"
-bash vbox.sh enter $VM_OS_NAME
+if bash vbox.sh waitForText $VM_OS_NAME "Booting in" 5 ; then
+  echo "OK, enter"
+  bash vbox.sh enter $VM_OS_NAME
+fi
 
 echo "waitForLoginTag"
 bash run.sh waitForLoginTag
