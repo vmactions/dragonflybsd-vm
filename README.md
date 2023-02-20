@@ -169,7 +169,7 @@ The default memory of the VM is 1024MB, you can use `mem` option to set the memo
 
 
 
-It uses [the latest DragonflyBSD 6.2.2](conf/default.release.conf) by default, you can use `release` option to use another version of DragonflyBSD:
+It uses [the latest DragonflyBSD 6.4.0](conf/default.release.conf) by default, you can use `release` option to use another version of DragonflyBSD:
 
 ```
 ...
@@ -179,11 +179,11 @@ It uses [the latest DragonflyBSD 6.2.2](conf/default.release.conf) by default, y
       id: test
       uses: vmactions/dragonflybsd-vm@v0
       with:
-        release: 6.2.2
+        release: 6.4.0
 ...
 ```
 
-All the supported releases are here: [DragonflyBSD  6.2.2](conf)
+All the supported releases are here: [DragonflyBSD  6.2.2, 6.4.0](conf)
 
 
 # Under the hood
