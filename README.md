@@ -23,7 +23,7 @@ jobs:
       MYTOKEN : ${{ secrets.MYTOKEN }}
       MYTOKEN2: "value2"
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Test in DragonflyBSD
       id: test
       uses: vmactions/dragonflybsd-vm@v0
@@ -83,7 +83,7 @@ The code is shared from the host to the VM via `rsync`, you can choose to use to
 ...
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Test
       id: test
       uses: vmactions/dragonflybsd-vm@v0
@@ -110,7 +110,7 @@ When using `rsync`,  you can define `copyback: false` to not copy files back fro
 ...
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Test
       id: test
       uses: vmactions/dragonflybsd-vm@v0
@@ -136,7 +136,7 @@ You can add NAT port between the host and the VM.
 ```
 ...
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Test
       id: test
       uses: vmactions/dragonflybsd-vm@v0
@@ -156,7 +156,7 @@ The default memory of the VM is 1024MB, you can use `mem` option to set the memo
 ```
 ...
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Test
       id: test
       uses: vmactions/dragonflybsd-vm@v0
@@ -174,7 +174,7 @@ It uses [the latest DragonflyBSD 6.2.2](conf/default.release.conf) by default, y
 ```
 ...
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Test
       id: test
       uses: vmactions/dragonflybsd-vm@v0
