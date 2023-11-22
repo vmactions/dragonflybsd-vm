@@ -23,7 +23,7 @@ jobs:
       MYTOKEN : ${{ secrets.MYTOKEN }}
       MYTOKEN2: "value2"
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Test in {{VM_NAME}}
       id: test
       uses: {{GITHUB_REPOSITORY}}@{{LATEST_MAJOR}}
@@ -72,7 +72,7 @@ The code is shared from the host to the VM via `rsync`, you can choose to use to
 ...
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Test
       id: test
       uses: {{GITHUB_REPOSITORY}}@{{LATEST_MAJOR}}
@@ -99,7 +99,7 @@ When using `rsync`,  you can define `copyback: false` to not copy files back fro
 ...
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Test
       id: test
       uses: {{GITHUB_REPOSITORY}}@{{LATEST_MAJOR}}
@@ -125,7 +125,7 @@ You can add NAT port between the host and the VM.
 ```
 ...
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Test
       id: test
       uses: {{GITHUB_REPOSITORY}}@{{LATEST_MAJOR}}
@@ -140,19 +140,19 @@ You can add NAT port between the host and the VM.
 ```
 
 
-The default memory of the VM is 1024MB, you can use `mem` option to set the memory size:
+The default memory of the VM is 6144MB, you can use `mem` option to set the memory size:
 
 ```
 ...
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Test
       id: test
       uses: {{GITHUB_REPOSITORY}}@{{LATEST_MAJOR}}
       with:
         envs: 'MYTOKEN MYTOKEN2'
         usesh: true
-        mem: 2048
+        mem: 4096
 ...
 ```
 
@@ -163,7 +163,7 @@ It uses [the latest {{VM_NAME}} {{DEFAULT_RELEASE}}](conf/default.release.conf) 
 ```
 ...
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Test
       id: test
       uses: {{GITHUB_REPOSITORY}}@{{LATEST_MAJOR}}
@@ -177,10 +177,16 @@ All the supported releases are here: [{{VM_NAME}}  {{ALL_RELEASES}}](conf)
 
 # Under the hood
 
-GitHub only supports Ubuntu, Windows and MacOS out of the box.
+We use Qemu and Libvirt to run the {{VM_NAME}} VM.
 
-However, the MacOS support virtualization. It has VirtualBox installed.
 
-So, we run the {{VM_NAME}} VM in VirtualBox on MacOS.
+
+
+# Upcoming features:
+
+1. Runs on MacOS to use cpu accelaration.
+2. Support ARM and other architecture.
+
+
 
 

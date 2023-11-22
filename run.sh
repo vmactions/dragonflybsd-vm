@@ -73,20 +73,20 @@ osname="$VM_OS_NAME"
 ostype="$VM_OS_TYPE"
 sshport=$VM_SSH_PORT
 
-ovafile="$osname-$VM_RELEASE.ova"
+ovafile="$osname-$VM_RELEASE.qcow2.xz"
 
-
+_idfile='~/.ssh/host.id_rsa'
 
 importVM() {
-  _idfile='~/.ssh/mac.id_rsa'
-
-  bash $vmsh addSSHHost $osname $sshport "$_idfile"
 
   bash $vmsh setup
 
   if [ ! -e "$ovafile" ]; then
     echo "Downloading $OVA_LINK"
-    wget -O "$ovafile" -q "$OVA_LINK"
+    axel -n 8 -o "$ovafile" -q "$OVA_LINK"
+    echo "Download finished, extract"
+    xz -d $ovafile
+    echo "Extract finished"
   fi
 
   if [ ! -e "id_rsa.pub" ]; then
@@ -94,22 +94,21 @@ importVM() {
     wget -O "id_rsa.pub" -q "$VM_PUBID_LINK"
   fi
 
-  if [ ! -e "mac.id_rsa" ]; then
-    echo "Downloading $VM_PUBID_LINK"
-    wget -O "mac.id_rsa" -q "$HOST_ID_LINK"
+  if [ ! -e "host.id_rsa" ]; then
+    echo "Downloading $HOST_ID_LINK"
+    wget -O "host.id_rsa" -q "$HOST_ID_LINK"
   fi
 
   ls -lah
 
   bash $vmsh addSSHAuthorizedKeys id_rsa.pub
-  cat mac.id_rsa >$HOME/.ssh/mac.id_rsa
-  chmod 600 $HOME/.ssh/mac.id_rsa
+  cat host.id_rsa >$HOME/.ssh/host.id_rsa
+  chmod 600 $HOME/.ssh/host.id_rsa
 
-  bash $vmsh importVM "$ovafile"
+  bash $vmsh importVM $osname $ostype "$osname-$VM_RELEASE.qcow2"
 
   if [ "$DEBUG" ]; then
     bash $vmsh startWeb $osname
-    bash $vmsh startCF
   fi
 
 }
@@ -117,7 +116,13 @@ importVM() {
 
 
 waitForLoginTag() {
-  bash $vmsh waitForText "$osname" "$VM_LOGIN_TAG"
+  if [ -e "hooks/waitForLoginTag.sh" ]; then
+    echo "Run hooks/waitForLoginTag.sh"
+    . hooks/waitForLoginTag.sh
+  else
+    bash $vmsh waitForText "$osname" "$VM_LOGIN_TAG"
+  fi
+
 }
 
 
@@ -133,7 +138,25 @@ execSSHSH() {
 
 
 addNAT() {
-  bash $vmsh addNAT "$osname" "$@"
+  _prot="$1"
+  _hostport="$2"
+  _vmport="$3"
+  _vmip=$(bash $vmsh getVMIP "$osname")
+
+  if ! command -v socat; then
+    if bash $vmsh isLinux; then
+      sudo apt-get install -y socat
+    else
+      brew install socat
+    fi
+  fi
+
+  if [ "$_prot" == "udp" ]; then
+    sudo socat UDP4-RECVFROM:$_hostport,fork UDP4-SENDTO:$_vmip:$_vmport &
+  else
+    sudo socat TCP-LISTEN:$_hostport,fork TCP:$_vmip:$_vmport &
+  fi
+
 }
 
 setMemory() {
@@ -153,7 +176,7 @@ startVM() {
 rsyncToVM() {
   _pwd="$PWD"
   cd "$_oldPWD"
-  rsync -avrtopg -e 'ssh -o MACs=umac-64-etm@openssh.com' --exclude _actions --exclude _PipelineMapping --exclude _temp  /Users/runner/work/  $osname:work
+  rsync -avrtopg -e 'ssh -o MACs=umac-64-etm@openssh.com' --exclude _actions --exclude _PipelineMapping --exclude _temp  $HOME/work/  $osname:work
   cd "$_pwd"
 }
 
@@ -161,7 +184,7 @@ rsyncToVM() {
 rsyncBackFromVM() {
   _pwd="$PWD"
   cd "$_oldPWD"
-  rsync -vrtopg   -e 'ssh -o MACs=umac-64-etm@openssh.com' $osname:work/ /Users/runner/work
+  rsync -vrtopg   -e 'ssh -o MACs=umac-64-etm@openssh.com' $osname:work/ $HOME/work
   cd "$_pwd"
 }
 
@@ -176,20 +199,11 @@ EOF
 }
 
 runSSHFSInVM() {
-  # remove these when using the vbox v0.0.2 and newer
-  echo "Reloading sshd services in the Host"
-  sudo sh <<EOF
-  echo "" >>/etc/ssh/sshd_config
-  echo "StrictModes no" >>/etc/ssh/sshd_config
-EOF
-  sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist
-  sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
-
 
   if [ -e "hooks/onRunSSHFS.sh" ] && ssh "$osname" sh <hooks/onRunSSHFS.sh; then
     echo "OK";
   elif [ "$VM_SSHFS_PKG" ]; then
-    echo "Insalling $VM_SSHFS_PKG"
+    echo "Installing $VM_SSHFS_PKG"
     ssh "$osname" sh <<EOF
 
 $VM_INSTALL_CMD $VM_SSHFS_PKG
@@ -198,7 +212,7 @@ EOF
     echo "Run sshfs"
     ssh "$osname" sh <<EOF
 
-sshfs -o reconnect,ServerAliveCountMax=2,allow_other,default_permissions host:work /Users/runner/work
+sshfs -o reconnect,ServerAliveCountMax=2,allow_other,default_permissions host:work $HOME/work
 
 EOF
 
@@ -210,6 +224,7 @@ EOF
 
 #run in the vm, just as soon as the vm is up
 onStarted() {
+  bash $vmsh addSSHHost $osname "$_idfile"
   if [ -e "hooks/onStarted.sh" ]; then
     ssh "$osname" sh <hooks/onStarted.sh
   fi
@@ -247,8 +262,8 @@ waitForBooting() {
 
 showDebugInfo() {
   echo "==================Debug Info===================="
-  pwd && ls -lah
-  bash -c 'pwd && ls -lah ~/.ssh/ && cat ~/.ssh/config'
+  pwd && ls -lah && sudo ps aux
+  bash -c 'pwd && ls -lah ~/.ssh/ && [ -e "~/.ssh/config" ] && cat ~/.ssh/config'
   cat $_conf_filename
 
   echo "===================Debug Info in VM============="
