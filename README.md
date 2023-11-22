@@ -23,7 +23,7 @@ jobs:
       MYTOKEN : ${{ secrets.MYTOKEN }}
       MYTOKEN2: "value2"
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Test in DragonflyBSD
       id: test
       uses: vmactions/dragonflybsd-vm@v0
@@ -83,7 +83,7 @@ The code is shared from the host to the VM via `rsync`, you can choose to use to
 ...
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Test
       id: test
       uses: vmactions/dragonflybsd-vm@v0
@@ -110,7 +110,7 @@ When using `rsync`,  you can define `copyback: false` to not copy files back fro
 ...
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Test
       id: test
       uses: vmactions/dragonflybsd-vm@v0
@@ -136,7 +136,7 @@ You can add NAT port between the host and the VM.
 ```
 ...
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Test
       id: test
       uses: vmactions/dragonflybsd-vm@v0
@@ -151,19 +151,19 @@ You can add NAT port between the host and the VM.
 ```
 
 
-The default memory of the VM is 1024MB, you can use `mem` option to set the memory size:
+The default memory of the VM is 6144MB, you can use `mem` option to set the memory size:
 
 ```
 ...
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Test
       id: test
       uses: vmactions/dragonflybsd-vm@v0
       with:
         envs: 'MYTOKEN MYTOKEN2'
         usesh: true
-        mem: 2048
+        mem: 4096
 ...
 ```
 
@@ -174,7 +174,7 @@ It uses [the latest DragonflyBSD 6.4.0](conf/default.release.conf) by default, y
 ```
 ...
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Test
       id: test
       uses: vmactions/dragonflybsd-vm@v0
@@ -188,10 +188,16 @@ All the supported releases are here: [DragonflyBSD  6.2.2, 6.4.0](conf)
 
 # Under the hood
 
-GitHub only supports Ubuntu, Windows and MacOS out of the box.
+We use Qemu and Libvirt to run the DragonflyBSD VM.
 
-However, the MacOS support virtualization. It has VirtualBox installed.
 
-So, we run the DragonflyBSD VM in VirtualBox on MacOS.
+
+
+# Upcoming features:
+
+1. Runs on MacOS to use cpu accelaration.
+2. Support ARM and other architecture.
+
+
 
 
