@@ -8,7 +8,7 @@ export VM_OS_NAME
 #1. download ISO
 if [ ! -e "$VM_OS_NAME.iso" ]; then
   echo "====> Downloading $GITHUB_ISO_LINK"
-  wget -q -O $VM_OS_NAME.iso $GITHUB_ISO_LINK
+  bash vbox.sh download $GITHUB_ISO_LINK $VM_OS_NAME.iso
 fi
 ls -lah
 
@@ -24,10 +24,9 @@ bash run.sh startVM
 
 
 #4. login as root
-. hooks/waitForBooting.sh
 
 echo "====> waitForLoginTag"
-bash run.sh waitForLoginTag
+bash vbox.sh waitForText $VM_OS_NAME "To start the installer"
 
 echo "====> OK, root"
 bash vbox.sh string root
