@@ -39,12 +39,14 @@ bash vbox.sh inputFile $VM_OS_NAME hooks/seno.txt
 
 echo "====> Wait for Booting in"
 #6. wait for reboot tag
-bash vbox.sh waitForText $VM_OS_NAME "Booting in"
+bash vbox.sh waitForText $VM_OS_NAME "To start the installer"
 
 
 #7. stopVM
 echo "====> shutdownVM"
 bash vbox.sh shutdownVM $VM_OS_NAME
+
+sleep 10
 
 
 #8. detachISO
