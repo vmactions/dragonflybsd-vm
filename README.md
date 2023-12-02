@@ -26,7 +26,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: Test in DragonflyBSD
       id: test
-      uses: vmactions/dragonflybsd-vm@v0
+      uses: vmactions/dragonflybsd-vm@v1
       with:
         envs: 'MYTOKEN MYTOKEN2'
         usesh: true
@@ -53,7 +53,7 @@ jobs:
 ```
 
 
-The latest major version is: `v0`, which is the most recommended to use. (You can also use the latest full version: `v0.0.7`)  
+The latest major version is: `v1`, which is the most recommended to use. (You can also use the latest full version: `v1.0.0`)  
 
 
 
@@ -86,7 +86,7 @@ The code is shared from the host to the VM via `rsync`, you can choose to use to
     - uses: actions/checkout@v4
     - name: Test
       id: test
-      uses: vmactions/dragonflybsd-vm@v0
+      uses: vmactions/dragonflybsd-vm@v1
       with:
         envs: 'MYTOKEN MYTOKEN2'
         usesh: true
@@ -113,7 +113,7 @@ When using `rsync`,  you can define `copyback: false` to not copy files back fro
     - uses: actions/checkout@v4
     - name: Test
       id: test
-      uses: vmactions/dragonflybsd-vm@v0
+      uses: vmactions/dragonflybsd-vm@v1
       with:
         envs: 'MYTOKEN MYTOKEN2'
         usesh: true
@@ -139,7 +139,7 @@ You can add NAT port between the host and the VM.
     - uses: actions/checkout@v4
     - name: Test
       id: test
-      uses: vmactions/dragonflybsd-vm@v0
+      uses: vmactions/dragonflybsd-vm@v1
       with:
         envs: 'MYTOKEN MYTOKEN2'
         usesh: true
@@ -159,7 +159,7 @@ The default memory of the VM is 6144MB, you can use `mem` option to set the memo
     - uses: actions/checkout@v4
     - name: Test
       id: test
-      uses: vmactions/dragonflybsd-vm@v0
+      uses: vmactions/dragonflybsd-vm@v1
       with:
         envs: 'MYTOKEN MYTOKEN2'
         usesh: true
@@ -177,13 +177,13 @@ It uses [the latest DragonflyBSD 6.4.0](conf/default.release.conf) by default, y
     - uses: actions/checkout@v4
     - name: Test
       id: test
-      uses: vmactions/dragonflybsd-vm@v0
+      uses: vmactions/dragonflybsd-vm@v1
       with:
         release: 6.4.0
 ...
 ```
 
-All the supported releases are here: [DragonflyBSD  6.2.2, 6.4.0](conf)
+All the supported releases are here: [DragonflyBSD  6.4.0](conf)
 
 
 # Under the hood
