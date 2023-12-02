@@ -55,7 +55,7 @@ export VM_RELEASE
 export VM_INSTALL_CMD
 export VM_SSHFS_PKG
 export VM_LOGIN_TAG
-
+export VM_OCR
 
 ##########################################################
 
