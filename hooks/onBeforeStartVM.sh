@@ -15,7 +15,7 @@ ls -lah
 
 #2. attach ISO
 echo "====> Attaching $VM_OS_NAME.iso"
-bash vbox.sh attachISO  $VM_OS_NAME   $VM_OS_NAME.iso
+bash vbox.sh attachISO  $VM_OS_NAME   $(pwd)/$VM_OS_NAME.iso
 
 
 #3. startVM
