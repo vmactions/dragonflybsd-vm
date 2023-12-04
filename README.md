@@ -17,7 +17,7 @@ on: [push]
 
 jobs:
   test:
-    runs-on: macos-12
+    runs-on: ubuntu-latest
     name: A job to run test in DragonflyBSD
     env:
       MYTOKEN : ${{ secrets.MYTOKEN }}
@@ -57,7 +57,7 @@ The latest major version is: `v1`, which is the most recommended to use. (You ca
 
 
 
-The `runs-on: macos-12` must be `macos-12`.
+The `runs-on: ubuntu-latest` must be `ubuntu-latest`.
 
 The `envs: 'MYTOKEN MYTOKEN2'` is the env names that you want to pass into the vm.
 
