@@ -183,7 +183,7 @@ It uses [the DragonflyBSD 6.4.0](conf/default.release.conf) by default, you can 
 ...
 ```
 
-All the supported releases are here: [DragonflyBSD  6.4.0](conf)
+All the supported releases are here: DragonflyBSD  6.4.0 [See all here](conf)
 
 
 # Under the hood
