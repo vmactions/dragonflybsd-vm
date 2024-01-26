@@ -179,7 +179,7 @@ It uses [the DragonflyBSD 6.4.0](conf/default.release.conf) by default, you can 
       id: test
       uses: vmactions/dragonflybsd-vm@v1
       with:
-        release: 6.4.0
+        release: "6.4.0"
 ...
 ```
 
