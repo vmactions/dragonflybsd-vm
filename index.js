@@ -61,7 +61,7 @@ async function setup(nat, mem) {
 
     core.startGroup("Run onStarted in VM");
 
-	if (nat) {
+    if (nat) {
       let nats = nat.split("\n").filter(x => x !== "");
       for (let element of nats) {
         core.info("Add nat: " + element);
@@ -190,7 +190,9 @@ async function main() {
     if(copyback !== "false") {
       core.startGroup("Copy files back from the VM");
       let sync = core.getInput("sync");
-      if (sync != "sshfs") {
+      if(sync == "no") {
+        core.info("don't get back by rsync");
+      } else if (sync != "sshfs") {
         core.info("get back by rsync");
         await exec.exec("bash " + workingDir + "/run.sh rsyncBackFromVM");
       }
