@@ -170,13 +170,13 @@ async function main() {
 
   var error = null;
   try {
-
-    if (usesh) {
-      await execSSHSH("cd $GITHUB_WORKSPACE;\n" + run);
-    } else {
-      await execSSH("cd $GITHUB_WORKSPACE;\n" + run);
+    if(run) {
+      if (usesh) {
+        await execSSHSH("cd $GITHUB_WORKSPACE;\n" + run);
+      } else {
+        await execSSH("cd $GITHUB_WORKSPACE;\n" + run);
+      }
     }
-
   } catch (err) {
     error = err;
     try {
