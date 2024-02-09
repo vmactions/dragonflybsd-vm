@@ -92,7 +92,9 @@ async function setup(nat, mem) {
     await execSSH(cmd1, "Setting up VM");
 
     let sync = core.getInput("sync");
-    if (sync == "sshfs") {
+    if(sync == "no") {
+      core.info("Don't sync files, OK");
+    } else if (sync == "sshfs") {
       core.info("Setup sshfs");
       await shell("bash run.sh runSSHFSInVM");
     } else {
