@@ -222,9 +222,11 @@ Support custom shell:
 ...
     steps:
     - uses: actions/checkout@v4
-    - name: Test
+    - name: Start VM
       id: vm
       uses: vmactions/dragonflybsd-vm@v1
+      with:
+        sync: sshfs
     - name: Custom shell step 1
       shell: dragonflybsd {0}
       run: |
