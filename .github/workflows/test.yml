@@ -47,7 +47,7 @@ jobs:
         port: 8000
     - name: Test in DragonflyBSD
       id: test
-      uses: vmactions/dragonflybsd-vm@42cad9d27e96603558461ae4a49b450fa2fe3c7c
+      uses: vmactions/dragonflybsd-vm@46591ccb498c890c7ac638b5401bcd40833b815e
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -121,7 +121,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: Test in DragonflyBSD
       id: test
-      uses: vmactions/dragonflybsd-vm@42cad9d27e96603558461ae4a49b450fa2fe3c7c
+      uses: vmactions/dragonflybsd-vm@46591ccb498c890c7ac638b5401bcd40833b815e
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
