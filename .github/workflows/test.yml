@@ -44,20 +44,27 @@ jobs:
     - name: Check arch
       id: check
       run: |
-        if [ -z "${{ matrix.release }}" ]; then
-          #ok, go ahead
-          echo "release is empty"
-          echo "run=true" >> $GITHUB_OUTPUT
-        elif [ -z "${{ matrix.arch }}" ]; then
+        _release="${{ matrix.release }}"
+        if [ -z "$_release" ]; then
+          . conf/default.release.conf
+          _release="$DEFAULT_RELEASE"
+        fi
+
+        _arch="${{ matrix.arch }}"
+        if [ "${_arch}" = "x86_64" ]; then
+          _arch=""
+        fi
+
+        if [ -z "${_arch}" ]; then
           #ok, go ahead
           echo "arch is empty"
           echo "run=true" >> $GITHUB_OUTPUT
-        elif [ -e "conf/${{ matrix.release }}-${{ matrix.arch }}.conf" ]; then
+        elif [ -e "conf/${_release}-${_arch}.conf" ]; then
           #ok, go ahead
-          echo "conf exists: conf/${{ matrix.release }}-${{ matrix.arch }}.conf"
+          echo "conf exists: conf/${_release}-${_arch}.conf"
           echo "run=true" >> $GITHUB_OUTPUT
         else
-          echo "The release ${{ matrix.release }} doesn't support ${{ matrix.arch }}, skip."
+          echo "The release ${_release} doesn't support ${_arch}, skip."
           echo "run=false" >> $GITHUB_OUTPUT
         fi
     - name: Creating Web console
@@ -70,7 +77,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@7d7598763c770fdfe8f5bdd32ac500afa99d4276
+      uses: vmactions/dragonflybsd-vm@ae043009920c1b72de581e8aa3140a79e93ff07e
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -154,20 +161,27 @@ jobs:
     - name: Check arch
       id: check
       run: |
-        if [ -z "${{ matrix.release }}" ]; then
-          #ok, go ahead
-          echo "release is empty"
-          echo "run=true" >> $GITHUB_OUTPUT
-        elif [ -z "${{ matrix.arch }}" ]; then
+        _release="${{ matrix.release }}"
+        if [ -z "$_release" ]; then
+          . conf/default.release.conf
+          _release="$DEFAULT_RELEASE"
+        fi
+
+        _arch="${{ matrix.arch }}"
+        if [ "${_arch}" = "x86_64" ]; then
+          _arch=""
+        fi
+
+        if [ -z "${_arch}" ]; then
           #ok, go ahead
           echo "arch is empty"
           echo "run=true" >> $GITHUB_OUTPUT
-        elif [ -e "conf/${{ matrix.release }}-${{ matrix.arch }}.conf" ]; then
+        elif [ -e "conf/${_release}-${_arch}.conf" ]; then
           #ok, go ahead
-          echo "conf exists: conf/${{ matrix.release }}-${{ matrix.arch }}.conf"
+          echo "conf exists: conf/${_release}-${_arch}.conf"
           echo "run=true" >> $GITHUB_OUTPUT
         else
-          echo "The release ${{ matrix.release }} doesn't support ${{ matrix.arch }}, skip."
+          echo "The release ${_release} doesn't support ${_arch}, skip."
           echo "run=false" >> $GITHUB_OUTPUT
         fi
     - name: Creating Web console
@@ -180,7 +194,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@7d7598763c770fdfe8f5bdd32ac500afa99d4276
+      uses: vmactions/dragonflybsd-vm@ae043009920c1b72de581e8aa3140a79e93ff07e
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -263,26 +277,33 @@ jobs:
     - name: Check arch
       id: check
       run: |
-        if [ -z "${{ matrix.release }}" ]; then
-          #ok, go ahead
-          echo "release is empty"
-          echo "run=true" >> $GITHUB_OUTPUT
-        elif [ -z "${{ matrix.arch }}" ]; then
+        _release="${{ matrix.release }}"
+        if [ -z "$_release" ]; then
+          . conf/default.release.conf
+          _release="$DEFAULT_RELEASE"
+        fi
+
+        _arch="${{ matrix.arch }}"
+        if [ "${_arch}" = "x86_64" ]; then
+          _arch=""
+        fi
+
+        if [ -z "${_arch}" ]; then
           #ok, go ahead
           echo "arch is empty"
           echo "run=true" >> $GITHUB_OUTPUT
-        elif [ -e "conf/${{ matrix.release }}-${{ matrix.arch }}.conf" ]; then
+        elif [ -e "conf/${_release}-${_arch}.conf" ]; then
           #ok, go ahead
-          echo "conf exists: conf/${{ matrix.release }}-${{ matrix.arch }}.conf"
+          echo "conf exists: conf/${_release}-${_arch}.conf"
           echo "run=true" >> $GITHUB_OUTPUT
         else
-          echo "The release ${{ matrix.release }} doesn't support ${{ matrix.arch }}, skip."
+          echo "The release ${_release} doesn't support ${_arch}, skip."
           echo "run=false" >> $GITHUB_OUTPUT
         fi
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@7d7598763c770fdfe8f5bdd32ac500afa99d4276
+      uses: vmactions/dragonflybsd-vm@ae043009920c1b72de581e8aa3140a79e93ff07e
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
