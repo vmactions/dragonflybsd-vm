@@ -10,6 +10,9 @@ inputs:
   release:
     description: 'The release version of DragonflyBSD vm'
     required: false
+  arch:
+    description: 'The cpu architecture of DragonflyBSD vm'
+    required: false
   envs:
     description: 'The envs to pass into DragonflyBSD vm'
     required: false

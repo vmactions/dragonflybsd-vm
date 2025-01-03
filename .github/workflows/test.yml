@@ -29,7 +29,9 @@ jobs:
     strategy:
       matrix:
         release: [ "6.4.0", ""]
+        arch: [ "aarch64", ""]
         runs: [ "ubuntu-24.04"]
+
     runs-on: ${{ matrix.runs }}
     name: sshfs DragonflyBSD
     env:
@@ -39,13 +41,34 @@ jobs:
       DEBUG: 1
     steps:
     - uses: actions/checkout@v4
+    - name: Check arch
+      id: check
+      run: |
+        if [ -z "${{ matrix.release }}" ]; then
+          #ok, go ahead
+          echo "release is empty"
+          echo "run=true" >> $GITHUB_OUTPUT
+        elif [ -z "${{ matrix.arch }}" ]; then
+          #ok, go ahead
+          echo "arch is empty"
+          echo "run=true" >> $GITHUB_OUTPUT
+        elif [ -e "conf/${{ matrix.release }}-${{ matrix.arch }}.conf" ]; then
+          #ok, go ahead
+          echo "conf exists: conf/${{ matrix.release }}-${{ matrix.arch }}.conf"
+          echo "run=true" >> $GITHUB_OUTPUT
+        else
+          echo "The release ${{ matrix.release }} doesn't support ${{ matrix.arch }}, skip."
+          echo "run=false" >> $GITHUB_OUTPUT
+        fi
     - name: Creating Web console
+      if: ${{ steps.check.outputs.run == 'true' }}
       uses: vmactions/cf-tunnel@v0
       id: tunnel
       with:
         protocol: http
         port: 8000
     - name: Test in DragonflyBSD
+      if: ${{ steps.check.outputs.run == 'true' }}
       id: test
       uses: vmactions/dragonflybsd-vm@299facfeb468d452b5f4996ee8b2bf2090cce015
       with:
@@ -53,6 +76,7 @@ jobs:
         prepare: |
           pkg install -y socat
         release: ${{ matrix.release }}
+        arch: ${{ matrix.arch }}
         nat: |
           "10022": "22"
           "8080": "80"
@@ -82,11 +106,13 @@ jobs:
           echo "OK"
 
     - name: Test NAT
+      if: ${{ steps.check.outputs.run == 'true' }}
       run:
         echo "TEST_ENV=$TEST_ENV"
         [ "$TEST_ENV" = "abc" ]
         ssh -vvv -p 10022 -i $HOME/.ssh/host.id_rsa root@localhost "uname -a;whoami;pwd"
     - name: Test custom shell
+      if: ${{ steps.check.outputs.run == 'true' }}
       shell: dragonflybsd {0}
       run: |
         pwd
@@ -105,10 +131,16 @@ jobs:
           uname -a
           echo "OK"
 
+
+
+
+
+
   testnfs:
     strategy:
       matrix:
         release: [ "6.4.0", ""]
+        arch: [ "aarch64", ""]
         runs: [ "ubuntu-24.04"]
     runs-on: ${{ matrix.runs }}
     name: nfs DragonflyBSD
@@ -119,13 +151,34 @@ jobs:
       DEBUG: 1
     steps:
     - uses: actions/checkout@v4
+    - name: Check arch
+      id: check
+      run: |
+        if [ -z "${{ matrix.release }}" ]; then
+          #ok, go ahead
+          echo "release is empty"
+          echo "run=true" >> $GITHUB_OUTPUT
+        elif [ -z "${{ matrix.arch }}" ]; then
+          #ok, go ahead
+          echo "arch is empty"
+          echo "run=true" >> $GITHUB_OUTPUT
+        elif [ -e "conf/${{ matrix.release }}-${{ matrix.arch }}.conf" ]; then
+          #ok, go ahead
+          echo "conf exists: conf/${{ matrix.release }}-${{ matrix.arch }}.conf"
+          echo "run=true" >> $GITHUB_OUTPUT
+        else
+          echo "The release ${{ matrix.release }} doesn't support ${{ matrix.arch }}, skip."
+          echo "run=false" >> $GITHUB_OUTPUT
+        fi
     - name: Creating Web console
+      if: ${{ steps.check.outputs.run == 'true' }}
       uses: vmactions/cf-tunnel@v0
       id: tunnel
       with:
         protocol: http
         port: 8000
     - name: Test in DragonflyBSD
+      if: ${{ steps.check.outputs.run == 'true' }}
       id: test
       uses: vmactions/dragonflybsd-vm@299facfeb468d452b5f4996ee8b2bf2090cce015
       with:
@@ -133,6 +186,7 @@ jobs:
         prepare: |
           pkg install -y socat
         release: ${{ matrix.release }}
+        arch: ${{ matrix.arch }}
         nat: |
           "10022": "22"
           "8080": "80"
@@ -162,11 +216,13 @@ jobs:
           echo "OK"
 
     - name: Test NAT
+      if: ${{ steps.check.outputs.run == 'true' }}
       run:
         echo "TEST_ENV=$TEST_ENV"
         [ "$TEST_ENV" = "abc" ]
         ssh -vvv -p 10022 -i $HOME/.ssh/host.id_rsa root@localhost "uname -a;whoami;pwd"
     - name: Test custom shell
+      if: ${{ steps.check.outputs.run == 'true' }}
       shell: dragonflybsd {0}
       run: |
         pwd
@@ -186,10 +242,15 @@ jobs:
           echo "OK"
 
 
+
+
+
+
   test:
     strategy:
       matrix:
         release: [ "6.4.0", ""]
+        arch: [ "aarch64", ""]
         runs: [ "ubuntu-24.04"]
     runs-on: ${{ matrix.runs }}
     name: DragonflyBSD
@@ -199,7 +260,27 @@ jobs:
       SEC_VBOX : ${{ secrets.SEC_VBOX }}
     steps:
     - uses: actions/checkout@v4
+    - name: Check arch
+      id: check
+      run: |
+        if [ -z "${{ matrix.release }}" ]; then
+          #ok, go ahead
+          echo "release is empty"
+          echo "run=true" >> $GITHUB_OUTPUT
+        elif [ -z "${{ matrix.arch }}" ]; then
+          #ok, go ahead
+          echo "arch is empty"
+          echo "run=true" >> $GITHUB_OUTPUT
+        elif [ -e "conf/${{ matrix.release }}-${{ matrix.arch }}.conf" ]; then
+          #ok, go ahead
+          echo "conf exists: conf/${{ matrix.release }}-${{ matrix.arch }}.conf"
+          echo "run=true" >> $GITHUB_OUTPUT
+        else
+          echo "The release ${{ matrix.release }} doesn't support ${{ matrix.arch }}, skip."
+          echo "run=false" >> $GITHUB_OUTPUT
+        fi
     - name: Test in DragonflyBSD
+      if: ${{ steps.check.outputs.run == 'true' }}
       id: test
       uses: vmactions/dragonflybsd-vm@299facfeb468d452b5f4996ee8b2bf2090cce015
       with:
@@ -208,6 +289,7 @@ jobs:
           pkg install -y socat
         mem: 4096
         release: ${{ matrix.release }}
+        arch: ${{ matrix.arch }}
         nat: |
           "10022": "22"
           "8080": "80"
@@ -229,12 +311,14 @@ jobs:
           uname -a
           echo "OK"
     - name: Test NAT
+      if: ${{ steps.check.outputs.run == 'true' }}
       run:
         echo "TEST_ENV=$TEST_ENV"
         [ "$TEST_ENV" = "abc" ]
         ssh -vvv -p 10022 -i $HOME/.ssh/host.id_rsa root@localhost "uname -a;whoami;pwd"
 
     - name: Test custom shell
+      if: ${{ steps.check.outputs.run == 'true' }}
       shell: dragonflybsd {0}
       run: |
         pwd
