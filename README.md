@@ -257,7 +257,7 @@ Support custom shell:
       id: vm
       uses: vmactions/dragonflybsd-vm@v1
       with:
-        sync: sshfs
+        sync: nfs
     - name: Custom shell step 1
       shell: dragonflybsd {0}
       run: |
