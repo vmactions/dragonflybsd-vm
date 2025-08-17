@@ -9,10 +9,11 @@ All the supported releases are here:
 
 
 
-| Release | x86_64  | aarch64 |
+| Release | x86_64(amd64)  | aarch64(arm64) |
 |---------|---------|---------|
 | 6.4.0   |  ✅     | ❌   |
-
+| 6.4.1   |  ✅     | ❌   |
+| 6.4.2   |  ✅     | ❌   |
 
 
 
@@ -210,7 +211,7 @@ The VM is using all the cpu cores of the host by default, you can use `cpu` opti
 
 ## 5. Select release
 
-It uses [the DragonflyBSD 6.4.0](conf/default.release.conf) by default, you can use `release` option to use another version of DragonflyBSD:
+It uses [the DragonflyBSD 6.4.2](conf/default.release.conf) by default, you can use `release` option to use another version of DragonflyBSD:
 
 ```
 ...
