@@ -37,6 +37,14 @@ jobs:
             arch: ""
           - runs: "ubuntu-24.04-arm"
             arch: "riscv64"
+          - arch: "aarch64"
+            runs: "ubuntu-24.04"
+          - arch: "aarch64"
+            runs: "ubuntu-24.04-arm"
+          - arch: "riscv64"
+            runs: "ubuntu-24.04"
+
+
 
     runs-on: ${{ matrix.runs }}
     name: sshfs DragonflyBSD
@@ -88,7 +96,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@a909ebe3d8210df584642a9633a093bb41bb2fbf
+      uses: vmactions/dragonflybsd-vm@627172403582922cee8070e827f2cb90fa507574
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -167,6 +175,14 @@ jobs:
             arch: ""
           - runs: "ubuntu-24.04-arm"
             arch: "riscv64"
+          - arch: "aarch64"
+            runs: "ubuntu-24.04"
+          - arch: "aarch64"
+            runs: "ubuntu-24.04-arm"
+          - arch: "riscv64"
+            runs: "ubuntu-24.04"
+
+
 
     runs-on: ${{ matrix.runs }}
     name: nfs DragonflyBSD
@@ -218,7 +234,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@a909ebe3d8210df584642a9633a093bb41bb2fbf
+      uses: vmactions/dragonflybsd-vm@627172403582922cee8070e827f2cb90fa507574
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -295,6 +311,14 @@ jobs:
             arch: ""
           - runs: "ubuntu-24.04-arm"
             arch: "riscv64"
+          - arch: "aarch64"
+            runs: "ubuntu-24.04"
+          - arch: "aarch64"
+            runs: "ubuntu-24.04-arm"
+          - arch: "riscv64"
+            runs: "ubuntu-24.04"
+
+
 
     runs-on: ${{ matrix.runs }}
     name: scp DragonflyBSD
@@ -341,7 +365,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@a909ebe3d8210df584642a9633a093bb41bb2fbf
+      uses: vmactions/dragonflybsd-vm@627172403582922cee8070e827f2cb90fa507574
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -420,9 +444,18 @@ jobs:
             arch: ""
           - runs: "ubuntu-24.04-arm"
             arch: "riscv64"
+          - arch: "aarch64"
+            runs: "ubuntu-24.04"
+          - arch: "aarch64"
+            runs: "ubuntu-24.04-arm"
+          - arch: "riscv64"
+            runs: "ubuntu-24.04"
+
+
+
 
     runs-on: ${{ matrix.runs }}
-    name: DragonflyBSD
+    name: rsync default DragonflyBSD
     env:
       MYTOKEN : ${{ secrets.MYTOKEN }}
       MYTOKEN2: "value2"
@@ -463,7 +496,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@a909ebe3d8210df584642a9633a093bb41bb2fbf
+      uses: vmactions/dragonflybsd-vm@627172403582922cee8070e827f2cb90fa507574
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
