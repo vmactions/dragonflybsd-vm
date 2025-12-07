@@ -134,7 +134,8 @@ jobs:
 
     - name: Test NAT
       if: ${{ steps.check.outputs.run == 'true' }}
-      run:
+      run: |
+        set -e
         echo "TEST_ENV=$TEST_ENV"
         [ "$TEST_ENV" = "abc" ]
         ssh -vvv -p 10022 -i $HOME/.ssh/host.id_rsa root@localhost "uname -a;whoami;pwd"
@@ -272,7 +273,8 @@ jobs:
 
     - name: Test NAT
       if: ${{ steps.check.outputs.run == 'true' }}
-      run:
+      run: |
+        set -e
         echo "TEST_ENV=$TEST_ENV"
         [ "$TEST_ENV" = "abc" ]
         ssh -vvv -p 10022 -i $HOME/.ssh/host.id_rsa root@localhost "uname -a;whoami;pwd"
@@ -389,6 +391,7 @@ jobs:
           fi
           env
           echo "TEST_ENV=abc" >>${GITHUB_ENV}
+          echo "textfromvm" >$GITHUB_WORKSPACE/vm.txt
           if [ -n "test" ]; then
             echo "false"
           fi
@@ -402,31 +405,19 @@ jobs:
           uname -a
           echo "OK"
 
-    - name: Test NAT
+    - name: Test files
       if: ${{ steps.check.outputs.run == 'true' }}
-      run:
-        echo "TEST_ENV=$TEST_ENV"
-        [ "$TEST_ENV" = "abc" ]
-        ssh -vvv -p 10022 -i $HOME/.ssh/host.id_rsa root@localhost "uname -a;whoami;pwd"
-    - name: Test custom shell
-      if: ${{ steps.check.outputs.run == 'true' }}
-      shell: dragonflybsd {0}
       run: |
-        pwd
-        cd $GITHUB_WORKSPACE;
-        pwd
-          if [ -n "test" ]; then
-            echo "false"
-          fi
-          if [ "test" ]; then
-            echo "test"
-          fi
-          pwd
-          ls -lah
-          whoami
-          env
-          uname -a
-          echo "OK"
+        set -e
+        [ -e "$GITHUB_WORKSPACE/vm.txt" ];
+        cat "$GITHUB_WORKSPACE/vm.txt";
+        grep "textfromvm" $GITHUB_WORKSPACE/vm.txt;
+        cat ${GITHUB_ENV}
+        echo "TEST_ENV=$TEST_ENV";
+        [ "$TEST_ENV" = "abc" ];
+        
+
+
 
 
 
@@ -527,7 +518,8 @@ jobs:
           echo "OK"
     - name: Test NAT
       if: ${{ steps.check.outputs.run == 'true' }}
-      run:
+      run: |
+        set -e
         echo "TEST_ENV=$TEST_ENV"
         [ "$TEST_ENV" = "abc" ]
         ssh -vvv -p 10022 -i $HOME/.ssh/host.id_rsa root@localhost "uname -a;whoami;pwd"
