@@ -25,11 +25,11 @@ concurrency:
 
 jobs:
   testsshfs:
-    if: ${{ !contains(github.repository, 'solaris') && !contains(github.repository, 'dragonflybsd') && !contains(github.repository, 'omnios')}}
+    if: ${{ !contains(github.repository, 'solaris') && !contains(github.repository, 'omnios')}}
     strategy:
       fail-fast: false
       matrix:
-        release: [ "6.4.0","6.4.1","6.4.2", ""]
+        release: [ "6.4.1","6.4.2", ""]
         arch: [ "aarch64", "", "riscv64"]
         runs: [ "ubuntu-24.04", "ubuntu-24.04-arm"]
         exclude:
@@ -96,7 +96,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@4e30bc3235e88ed595195fdd63592d0754c50ff2
+      uses: vmactions/dragonflybsd-vm@43f5bf8000e32ddf1cdb97412be7e39b90f2e23b
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -168,7 +168,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: [ "6.4.0","6.4.1","6.4.2", ""]
+        release: [ "6.4.1","6.4.2", ""]
         arch: [ "aarch64", "", "riscv64"]
         runs: [ "ubuntu-24.04", "ubuntu-24.04-arm"]
         exclude:
@@ -235,7 +235,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@4e30bc3235e88ed595195fdd63592d0754c50ff2
+      uses: vmactions/dragonflybsd-vm@43f5bf8000e32ddf1cdb97412be7e39b90f2e23b
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -305,7 +305,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: [ "6.4.0","6.4.1","6.4.2", ""]
+        release: [ "6.4.1","6.4.2", ""]
         arch: [ "aarch64", "", "riscv64"]
         runs: [ "ubuntu-24.04", "ubuntu-24.04-arm"]
         exclude:
@@ -367,7 +367,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@4e30bc3235e88ed595195fdd63592d0754c50ff2
+      uses: vmactions/dragonflybsd-vm@43f5bf8000e32ddf1cdb97412be7e39b90f2e23b
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -427,7 +427,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        release: [ "6.4.0","6.4.1","6.4.2", ""]
+        release: [ "6.4.1","6.4.2", ""]
         arch: [ "aarch64", "", "riscv64"]
         runs: [ "ubuntu-24.04", "ubuntu-24.04-arm"]
         exclude:
@@ -487,7 +487,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@4e30bc3235e88ed595195fdd63592d0754c50ff2
+      uses: vmactions/dragonflybsd-vm@43f5bf8000e32ddf1cdb97412be7e39b90f2e23b
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
