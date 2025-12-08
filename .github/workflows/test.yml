@@ -111,12 +111,12 @@ jobs:
         usesh: true
         sync: sshfs
         run: |
+          set -e
           ls -lah /root/work
           if [ -z "$(ls -A $HOME/work)" ]; then
             echo "sshfs error."
             exit 1
           fi
-          env
           echo "TEST_ENV=abc" >>${GITHUB_ENV}
           echo "textfromvm" >$GITHUB_WORKSPACE/vm.txt
           if [ -n "test" ]; then
