@@ -96,7 +96,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@6d31df33e2def768cbabe431eb14de2b2be63b26
+      uses: vmactions/dragonflybsd-vm@c6c779a9f18a61404258c59950897f84a0bebc47
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -119,12 +119,6 @@ jobs:
           fi
           echo "TEST_ENV=abc" >>${GITHUB_ENV}
           echo "textfromvm" >$GITHUB_WORKSPACE/vm.txt
-          if [ -n "test" ]; then
-            echo "false"
-          fi
-          if [ "test" ]; then
-            echo "test"
-          fi
           pwd
           ls -lah
           whoami
@@ -146,12 +140,6 @@ jobs:
         pwd
         cd $GITHUB_WORKSPACE;
         pwd
-          if [ -n "test" ]; then
-            echo "false"
-          fi
-          if [ "test" ]; then
-            echo "test"
-          fi
           pwd
           ls -lah
           whoami
@@ -235,7 +223,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@6d31df33e2def768cbabe431eb14de2b2be63b26
+      uses: vmactions/dragonflybsd-vm@c6c779a9f18a61404258c59950897f84a0bebc47
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -259,12 +247,6 @@ jobs:
           env
           echo "TEST_ENV=abc" >>${GITHUB_ENV}
           echo "textfromvm" >$GITHUB_WORKSPACE/vm.txt
-          if [ -n "test" ]; then
-            echo "false"
-          fi
-          if [ "test" ]; then
-            echo "test"
-          fi
           pwd
           ls -lah
           whoami
@@ -289,12 +271,6 @@ jobs:
         pwd
         cd $GITHUB_WORKSPACE;
         pwd
-          if [ -n "test" ]; then
-            echo "false"
-          fi
-          if [ "test" ]; then
-            echo "test"
-          fi
           pwd
           ls -lah
           whoami
@@ -371,7 +347,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@6d31df33e2def768cbabe431eb14de2b2be63b26
+      uses: vmactions/dragonflybsd-vm@c6c779a9f18a61404258c59950897f84a0bebc47
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -396,12 +372,6 @@ jobs:
           env
           echo "TEST_ENV=abc" >>${GITHUB_ENV}
           echo "textfromvm" >$GITHUB_WORKSPACE/vm.txt
-          if [ -n "test" ]; then
-            echo "false"
-          fi
-          if [ "test" ]; then
-            echo "test"
-          fi
           pwd
           ls -lah
           whoami
@@ -491,7 +461,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@6d31df33e2def768cbabe431eb14de2b2be63b26
+      uses: vmactions/dragonflybsd-vm@c6c779a9f18a61404258c59950897f84a0bebc47
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -508,12 +478,6 @@ jobs:
         run: |
           env
           echo "TEST_ENV=abc" >>${GITHUB_ENV}
-          if [ -n "test" ]; then
-            echo "false"
-          fi
-          if [ "test" ]; then
-            echo "test"
-          fi
           pwd
           ls -lah
           whoami
@@ -535,12 +499,6 @@ jobs:
         pwd
         cd $GITHUB_WORKSPACE;
         pwd
-          if [ -n "test" ]; then
-            echo "false"
-          fi
-          if [ "test" ]; then
-            echo "test"
-          fi
           pwd
           ls -lah
           whoami
