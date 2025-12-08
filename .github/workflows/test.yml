@@ -258,6 +258,7 @@ jobs:
           fi
           env
           echo "TEST_ENV=abc" >>${GITHUB_ENV}
+          echo "textfromvm" >$GITHUB_WORKSPACE/vm.txt
           if [ -n "test" ]; then
             echo "false"
           fi
