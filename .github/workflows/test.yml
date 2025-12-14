@@ -96,7 +96,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@33d02a0704d7be4a96ffa798651fed61f94466bd
+      uses: vmactions/dragonflybsd-vm@0a8c29adb349f875957f91def47988cf859203b4
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -104,11 +104,12 @@ jobs:
         release: ${{ matrix.release }}
         arch: ${{ matrix.arch }}
         nat: |
-          "10022": "22"
+          "20022": "22"
           "8080": "80"
           "8443": "443"
           udp:"8081": "80"
         usesh: true
+        debug: true
         sync: sshfs
         run: |
           set -e
@@ -132,7 +133,7 @@ jobs:
         set -e
         echo "TEST_ENV=$TEST_ENV"
         [ "$TEST_ENV" = "abc" ]
-        ssh -vvv -p 10022 -i $HOME/.ssh/host.id_rsa root@localhost "uname -a;whoami;pwd"
+        ssh -vvv 20022  "uname -a;whoami;pwd"
     - name: Test custom shell
       if: ${{ steps.check.outputs.run == 'true' }}
       shell: dragonflybsd {0}
@@ -223,7 +224,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@33d02a0704d7be4a96ffa798651fed61f94466bd
+      uses: vmactions/dragonflybsd-vm@0a8c29adb349f875957f91def47988cf859203b4
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -231,7 +232,7 @@ jobs:
         release: ${{ matrix.release }}
         arch: ${{ matrix.arch }}
         nat: |
-          "10022": "22"
+          "20022": "22"
           "8080": "80"
           "8443": "443"
           udp:"8081": "80"
@@ -263,7 +264,7 @@ jobs:
         grep "textfromvm" $GITHUB_WORKSPACE/vm.txt;
         echo "TEST_ENV=$TEST_ENV"
         [ "$TEST_ENV" = "abc" ]
-        ssh -vvv -p 10022 -i $HOME/.ssh/host.id_rsa root@localhost "uname -a;whoami;pwd"
+        ssh -vvv 20022 "uname -a;whoami;pwd"
     - name: Test custom shell
       if: ${{ steps.check.outputs.run == 'true' }}
       shell: dragonflybsd {0}
@@ -347,7 +348,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@33d02a0704d7be4a96ffa798651fed61f94466bd
+      uses: vmactions/dragonflybsd-vm@0a8c29adb349f875957f91def47988cf859203b4
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -355,7 +356,7 @@ jobs:
         release: ${{ matrix.release }}
         arch: ${{ matrix.arch }}
         nat: |
-          "10022": "22"
+          "20022": "22"
           "8080": "80"
           "8443": "443"
           udp:"8081": "80"
@@ -461,7 +462,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@33d02a0704d7be4a96ffa798651fed61f94466bd
+      uses: vmactions/dragonflybsd-vm@0a8c29adb349f875957f91def47988cf859203b4
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -470,7 +471,7 @@ jobs:
         release: ${{ matrix.release }}
         arch: ${{ matrix.arch }}
         nat: |
-          "10022": "22"
+          "20022": "22"
           "8080": "80"
           "8443": "443"
           udp:"8081": "80"
@@ -490,7 +491,7 @@ jobs:
         set -e
         echo "TEST_ENV=$TEST_ENV"
         [ "$TEST_ENV" = "abc" ]
-        ssh -vvv -p 10022 -i $HOME/.ssh/host.id_rsa root@localhost "uname -a;whoami;pwd"
+        ssh -vvv  20022  "uname -a;whoami;pwd"
 
     - name: Test custom shell
       if: ${{ steps.check.outputs.run == 'true' }}

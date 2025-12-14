@@ -1,6 +1,10 @@
 name: 'DragonflyBSD-vm'
 description: 'Run CI in DragonflyBSD for GitHub Actions'
 inputs:
+  osname:
+    description: 'The OS name'
+    required: false
+    default: 'DragonflyBSD'
   prepare:
     description: 'Install some tools before CI runs'
     required: false
