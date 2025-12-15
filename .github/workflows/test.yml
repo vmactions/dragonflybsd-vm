@@ -101,6 +101,7 @@ jobs:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
           pkg install -y socat
+        mem: 4096
         release: ${{ matrix.release }}
         arch: ${{ matrix.arch }}
         nat: |
@@ -133,7 +134,7 @@ jobs:
         set -e
         echo "TEST_ENV=$TEST_ENV"
         [ "$TEST_ENV" = "abc" ]
-        ssh -vvv 20022  "uname -a;whoami;pwd"
+        ssh -vvv -p 20022 root@localhost  "uname -a;whoami;pwd"
     - name: Test custom shell
       if: ${{ steps.check.outputs.run == 'true' }}
       shell: dragonflybsd {0}
@@ -229,6 +230,7 @@ jobs:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
           pkg install -y socat
+        mem: 4096
         release: ${{ matrix.release }}
         arch: ${{ matrix.arch }}
         nat: |
@@ -264,7 +266,7 @@ jobs:
         grep "textfromvm" $GITHUB_WORKSPACE/vm.txt;
         echo "TEST_ENV=$TEST_ENV"
         [ "$TEST_ENV" = "abc" ]
-        ssh -vvv 20022 "uname -a;whoami;pwd"
+        ssh -vvv -p 20022 root@localhost "uname -a;whoami;pwd"
     - name: Test custom shell
       if: ${{ steps.check.outputs.run == 'true' }}
       shell: dragonflybsd {0}
@@ -353,6 +355,7 @@ jobs:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
           pkg install -y socat
+        mem: 4096
         release: ${{ matrix.release }}
         arch: ${{ matrix.arch }}
         nat: |
@@ -476,6 +479,7 @@ jobs:
           "8443": "443"
           udp:"8081": "80"
         usesh: true
+        debug: true
         run: |
           env
           echo "TEST_ENV=abc" >>${GITHUB_ENV}
@@ -491,7 +495,7 @@ jobs:
         set -e
         echo "TEST_ENV=$TEST_ENV"
         [ "$TEST_ENV" = "abc" ]
-        ssh -vvv  20022  "uname -a;whoami;pwd"
+        ssh -vvv  -p 20022 root@localhost  "uname -a;whoami;pwd"
 
     - name: Test custom shell
       if: ${{ steps.check.outputs.run == 'true' }}
