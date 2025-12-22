@@ -98,7 +98,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@7ebc32430c61cecc7fb98e7943d2b39b2a643b92
+      uses: vmactions/dragonflybsd-vm@fa28937af6054333bc1eacfadcc411c944d512c4
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -228,7 +228,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@7ebc32430c61cecc7fb98e7943d2b39b2a643b92
+      uses: vmactions/dragonflybsd-vm@fa28937af6054333bc1eacfadcc411c944d512c4
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -242,6 +242,7 @@ jobs:
           "8443": "443"
           udp:"8081": "80"
         usesh: true
+        debug: true
         sync: nfs
         run: |
           ls -lah /root/work
@@ -354,7 +355,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@7ebc32430c61cecc7fb98e7943d2b39b2a643b92
+      uses: vmactions/dragonflybsd-vm@fa28937af6054333bc1eacfadcc411c944d512c4
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -368,6 +369,7 @@ jobs:
           "8443": "443"
           udp:"8081": "80"
         usesh: true
+        debug: true
         sync: scp
         run: |
           ls -lah /root/work
@@ -470,7 +472,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@7ebc32430c61cecc7fb98e7943d2b39b2a643b92
+      uses: vmactions/dragonflybsd-vm@fa28937af6054333bc1eacfadcc411c944d512c4
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
