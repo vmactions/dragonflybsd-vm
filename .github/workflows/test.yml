@@ -98,7 +98,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@e88a63f7602a106ae18e38d02fe4ed4f88ae79f5
+      uses: vmactions/dragonflybsd-vm@2467add60107d185410bbb3ff78366e63151ccfb
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -136,7 +136,7 @@ jobs:
         set -e
         echo "TEST_ENV=$TEST_ENV"
         [ "$TEST_ENV" = "abc" ]
-        ssh -vvv -p 20022 root@localhost  "uname -a;whoami;pwd"
+        ssh -v -p 20022 root@localhost  "uname -a;whoami;pwd"
     - name: Test custom shell
       if: ${{ steps.check.outputs.run == 'true' }}
       shell: dragonflybsd {0}
@@ -228,7 +228,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@e88a63f7602a106ae18e38d02fe4ed4f88ae79f5
+      uses: vmactions/dragonflybsd-vm@2467add60107d185410bbb3ff78366e63151ccfb
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -270,7 +270,7 @@ jobs:
         grep "textfromvm" $GITHUB_WORKSPACE/vm.txt;
         echo "TEST_ENV=$TEST_ENV"
         [ "$TEST_ENV" = "abc" ]
-        ssh -vvv -p 20022 root@localhost "uname -a;whoami;pwd"
+        ssh -v -p 20022 root@localhost "uname -a;whoami;pwd"
     - name: Test custom shell
       if: ${{ steps.check.outputs.run == 'true' }}
       shell: dragonflybsd {0}
@@ -355,7 +355,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@e88a63f7602a106ae18e38d02fe4ed4f88ae79f5
+      uses: vmactions/dragonflybsd-vm@2467add60107d185410bbb3ff78366e63151ccfb
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -472,7 +472,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@e88a63f7602a106ae18e38d02fe4ed4f88ae79f5
+      uses: vmactions/dragonflybsd-vm@2467add60107d185410bbb3ff78366e63151ccfb
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -502,7 +502,7 @@ jobs:
         set -e
         echo "TEST_ENV=$TEST_ENV"
         [ "$TEST_ENV" = "abc" ]
-        ssh -vvv  -p 20022 root@localhost  "uname -a;whoami;pwd"
+        ssh -v  -p 20022 root@localhost  "uname -a;whoami;pwd"
 
     - name: Test custom shell
       if: ${{ steps.check.outputs.run == 'true' }}
