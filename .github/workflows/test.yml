@@ -98,7 +98,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@d0847b9c24da196c7fd847c196b53b4fe4d88927
+      uses: vmactions/dragonflybsd-vm@f0f852ed83d0fb93902539de70379b5c30c1bbb4
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -228,7 +228,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@d0847b9c24da196c7fd847c196b53b4fe4d88927
+      uses: vmactions/dragonflybsd-vm@f0f852ed83d0fb93902539de70379b5c30c1bbb4
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -355,7 +355,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@d0847b9c24da196c7fd847c196b53b4fe4d88927
+      uses: vmactions/dragonflybsd-vm@f0f852ed83d0fb93902539de70379b5c30c1bbb4
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -472,7 +472,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@d0847b9c24da196c7fd847c196b53b4fe4d88927
+      uses: vmactions/dragonflybsd-vm@f0f852ed83d0fb93902539de70379b5c30c1bbb4
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
