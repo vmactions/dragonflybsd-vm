@@ -430,6 +430,7 @@ async function main() {
     if (sendEnvs.length > 0) {
       fs.appendFileSync(sshConfigPath, `Host ${sshHost}\n  SendEnv ${sendEnvs.join(" ")}\n`);
     }
+    fs.appendFileSync(sshConfigPath, "Host *\n  StrictHostKeyChecking no\n");
 
     //support Custom shell
     const localBinDir = path.join(process.env["HOME"], ".local", "bin");
