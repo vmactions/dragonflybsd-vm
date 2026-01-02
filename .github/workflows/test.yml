@@ -25,7 +25,7 @@ concurrency:
 
 jobs:
   testsshfs:
-    if: ${{ !contains(github.repository, 'dragonflybsd') && !contains(github.repository, 'solaris') && !contains(github.repository, 'omnios')}}
+    if: ${{ !contains(github.repository, 'dragonflybsd') && !contains(github.repository, 'solaris') && !contains(github.repository, 'omnios') && !contains(github.repository, 'haiku')}}
     strategy:
       fail-fast: false
       matrix:
@@ -116,7 +116,7 @@ jobs:
         sync: sshfs
         run: |
           set -e
-          ls -lah /root/work
+          ls -lah $HOME/work
           if [ -z "$(ls -A $HOME/work)" ]; then
             echo "sshfs error."
             exit 1
@@ -132,17 +132,17 @@ jobs:
 
     - name: Test NAT
       if: ${{ steps.check.outputs.run == 'true' }}
+      env:
+        VM_USER: ""
       run: |
         set -e
         echo "TEST_ENV=$TEST_ENV"
         [ "$TEST_ENV" = "abc" ]
-        ssh -v -p 20022 root@localhost  "uname -a;whoami;pwd"
+        ssh -v -p 20022 ${VM_USER:-root}@localhost  "uname -a;whoami;pwd"
     - name: Test custom shell
       if: ${{ steps.check.outputs.run == 'true' }}
       shell: dragonflybsd {0}
       run: |
-        pwd
-        cd $GITHUB_WORKSPACE;
         pwd
           pwd
           ls -lah
@@ -157,6 +157,7 @@ jobs:
 
 
   testnfs:
+    if: ${{!contains(github.repository, 'haiku')}}
     strategy:
       fail-fast: false
       matrix:
@@ -245,7 +246,7 @@ jobs:
         debug: true
         sync: nfs
         run: |
-          ls -lah /root/work
+          ls -lah $HOME/work
           tree $HOME/work/
           if [ -z "$(ls -A $HOME/work)" ]; then
             echo "nfs error."
@@ -263,6 +264,8 @@ jobs:
 
     - name: Test NAT
       if: ${{ steps.check.outputs.run == 'true' }}
+      env:
+        VM_USER: ""
       run: |
         set -e
         [ -e "$GITHUB_WORKSPACE/vm.txt" ];
@@ -270,13 +273,11 @@ jobs:
         grep "textfromvm" $GITHUB_WORKSPACE/vm.txt;
         echo "TEST_ENV=$TEST_ENV"
         [ "$TEST_ENV" = "abc" ]
-        ssh -v -p 20022 root@localhost "uname -a;whoami;pwd"
+        ssh -v -p 20022 ${VM_USER:-root}@localhost "uname -a;whoami;pwd"
     - name: Test custom shell
       if: ${{ steps.check.outputs.run == 'true' }}
       shell: dragonflybsd {0}
       run: |
-        pwd
-        cd $GITHUB_WORKSPACE;
         pwd
           pwd
           ls -lah
@@ -372,7 +373,7 @@ jobs:
         debug: true
         sync: scp
         run: |
-          ls -lah /root/work
+          ls -lah $HOME/work
           #don't use tree here, freebsd riscv64 doesn't have a tree
           #tree $HOME/work/
           if [ -z "$(ls -A $HOME/work)" ]; then
@@ -391,6 +392,8 @@ jobs:
 
     - name: Test files
       if: ${{ steps.check.outputs.run == 'true' }}
+      env:
+        VM_USER: ""
       run: |
         set -e
         [ -e "$GITHUB_WORKSPACE/vm.txt" ];
@@ -498,18 +501,18 @@ jobs:
           echo "OK"
     - name: Test NAT
       if: ${{ steps.check.outputs.run == 'true' }}
+      env:
+        VM_USER: ""
       run: |
         set -e
         echo "TEST_ENV=$TEST_ENV"
         [ "$TEST_ENV" = "abc" ]
-        ssh -v  -p 20022 root@localhost  "uname -a;whoami;pwd"
+        ssh -v  -p 20022 ${VM_USER:-root}@localhost  "uname -a;whoami;pwd"
 
     - name: Test custom shell
       if: ${{ steps.check.outputs.run == 'true' }}
       shell: dragonflybsd {0}
       run: |
-        pwd
-        cd $GITHUB_WORKSPACE;
         pwd
           pwd
           ls -lah
