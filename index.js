@@ -151,23 +151,45 @@ async function execSSH(cmd, sshConfig, ignoreReturn = false) {
   }
 }
 
-async function install() {
+async function install(arch, sync, builderVersion) {
   core.info("Installing dependencies...");
   if (process.platform === 'linux') {
+    const pkgs = [
+      "zstd",
+      "qemu-utils"
+    ];
+
+    let xzRequired = true;
+    if (builderVersion) {
+      const parts = builderVersion.split('.');
+      const major = parseInt(parts[0], 10) || 0;
+      if (major >= 2) {
+        xzRequired = false;
+      }
+    }
+
+    if (xzRequired) {
+      pkgs.push("xz-utils");
+    }
+
+    if (!arch || arch === 'x86_64' || arch === 'amd64') {
+      pkgs.push("qemu-system-x86", "ovmf");
+    } else if (arch === 'aarch64' || arch === 'arm64') {
+      pkgs.push("qemu-system-arm", "qemu-efi-aarch64", "ipxe-qemu");
+    } else {
+      pkgs.push("qemu-system-misc", "u-boot-qemu", "ipxe-qemu");
+    }
+
+    if (sync === 'nfs') {
+      pkgs.push("nfs-kernel-server");
+    }
+    if (sync === 'rsync') {
+      pkgs.push("rsync");
+    }
+
     await exec.exec("sudo", ["apt-get", "update"]);
-    await exec.exec("sudo", ["apt-get", "install", "-y", "--no-install-recommends"
-      , "qemu-system-x86"
-      , "qemu-system-arm"
-      , "qemu-efi-aarch64"
-      , "qemu-system-misc"
-      , "u-boot-qemu"
-      , "nfs-kernel-server"
-      , "rsync"
-      , "zstd"
-      , "ovmf"
-      , "xz-utils"
-      , "openssh-server"
-      , "qemu-utils"]);
+    await exec.exec("sudo", ["apt-get", "install", "-y", "--no-install-recommends", ...pkgs]);
+
     if (fs.existsSync('/dev/kvm')) {
       await exec.exec("sudo", ["chmod", "666", "/dev/kvm"]);
     }
@@ -281,7 +303,7 @@ async function main() {
     await downloadFile(anyvmUrl, anyvmPath);
 
     core.startGroup("Installing dependencies");
-    await install();
+    await install(arch, sync, builderVersion);
     core.endGroup();
 
     // 4. Start VM
