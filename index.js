@@ -527,7 +527,19 @@ async function main() {
       if (workspace) {
         core.info("Copying back artifacts");
         if (sync === 'scp') {
-          const remoteTarCmd = `if command -v cpio > /dev/null 2>&1; then cd "${vmwork}" && find . -name .git -prune -o -print | cpio -o -H ustar; else cd "${vmwork}" && tar -cf - --exclude .git .; fi`;
+          let useCpio = true;
+          if (osName === 'haiku') {
+            try {
+              await execSSH("command -v cpio", sshConfig);
+            } catch (e) {
+              useCpio = false;
+            }
+          }
+
+          const remoteTarCmd = useCpio
+            ? `cd "${vmwork}" && find . -name .git -prune -o -print | cpio -o -H ustar`
+            : `cd "${vmwork}" && tar -cf - --exclude .git .`;
+
           core.info(`Exec SSH: ${remoteTarCmd}`);
 
           await new Promise((resolve, reject) => {
