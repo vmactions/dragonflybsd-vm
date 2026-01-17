@@ -55,7 +55,7 @@ jobs:
       DEBUG: 1
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Check arch
       id: check
       run: |
@@ -98,7 +98,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@3c9b1bf0cc21a8abedcb8c8ce08f17fe51d0e7d9
+      uses: vmactions/dragonflybsd-vm@8e838e7932550f4542f1841b5f2518a9789aa3c3
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -187,7 +187,7 @@ jobs:
       DEBUG: 1
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Check arch
       id: check
       run: |
@@ -229,7 +229,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@3c9b1bf0cc21a8abedcb8c8ce08f17fe51d0e7d9
+      uses: vmactions/dragonflybsd-vm@8e838e7932550f4542f1841b5f2518a9789aa3c3
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -319,7 +319,7 @@ jobs:
       DEBUG: 1
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Check arch
       id: check
       run: |
@@ -356,7 +356,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@3c9b1bf0cc21a8abedcb8c8ce08f17fe51d0e7d9
+      uses: vmactions/dragonflybsd-vm@8e838e7932550f4542f1841b5f2518a9789aa3c3
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -440,7 +440,7 @@ jobs:
       SEC_VBOX : ${{ vars.SEC_VBOX }}
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Check arch
       id: check
       run: |
@@ -475,7 +475,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@3c9b1bf0cc21a8abedcb8c8ce08f17fe51d0e7d9
+      uses: vmactions/dragonflybsd-vm@8e838e7932550f4542f1841b5f2518a9789aa3c3
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
