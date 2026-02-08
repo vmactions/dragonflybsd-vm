@@ -98,7 +98,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@91c4d8bfe1739fd0a4b4fd386215ff94f00fea29
+      uses: vmactions/dragonflybsd-vm@26ee06e0164257964f1567cc7b08230b666937a5
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -229,7 +229,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@91c4d8bfe1739fd0a4b4fd386215ff94f00fea29
+      uses: vmactions/dragonflybsd-vm@26ee06e0164257964f1567cc7b08230b666937a5
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -356,7 +356,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@91c4d8bfe1739fd0a4b4fd386215ff94f00fea29
+      uses: vmactions/dragonflybsd-vm@26ee06e0164257964f1567cc7b08230b666937a5
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -476,7 +476,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@91c4d8bfe1739fd0a4b4fd386215ff94f00fea29
+      uses: vmactions/dragonflybsd-vm@26ee06e0164257964f1567cc7b08230b666937a5
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -537,7 +537,7 @@ jobs:
     - name: Test in DragonflyBSD
       id: testerr
       continue-on-error: true 
-      uses: vmactions/dragonflybsd-vm@91c4d8bfe1739fd0a4b4fd386215ff94f00fea29
+      uses: vmactions/dragonflybsd-vm@26ee06e0164257964f1567cc7b08230b666937a5
       with:
         usesh: true
         debug: true
@@ -565,7 +565,7 @@ jobs:
     - name: Test in DragonflyBSD
       id: testpass
       continue-on-error: true 
-      uses: vmactions/dragonflybsd-vm@91c4d8bfe1739fd0a4b4fd386215ff94f00fea29
+      uses: vmactions/dragonflybsd-vm@26ee06e0164257964f1567cc7b08230b666937a5
       with:
         usesh: true
         debug: true
