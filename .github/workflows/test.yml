@@ -98,7 +98,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@ebb8a3451ddcf2671940fa6d862229b6b2744e08
+      uses: vmactions/dragonflybsd-vm@f5f91909e46784f08db2551b7c2222157e086c20
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -229,7 +229,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@ebb8a3451ddcf2671940fa6d862229b6b2744e08
+      uses: vmactions/dragonflybsd-vm@f5f91909e46784f08db2551b7c2222157e086c20
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -356,7 +356,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@ebb8a3451ddcf2671940fa6d862229b6b2744e08
+      uses: vmactions/dragonflybsd-vm@f5f91909e46784f08db2551b7c2222157e086c20
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -476,7 +476,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@ebb8a3451ddcf2671940fa6d862229b6b2744e08
+      uses: vmactions/dragonflybsd-vm@f5f91909e46784f08db2551b7c2222157e086c20
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -537,13 +537,13 @@ jobs:
     - name: Test in DragonflyBSD
       id: testerr
       continue-on-error: true 
-      uses: vmactions/dragonflybsd-vm@ebb8a3451ddcf2671940fa6d862229b6b2744e08
+      uses: vmactions/dragonflybsd-vm@f5f91909e46784f08db2551b7c2222157e086c20
       with:
         usesh: true
         debug: true
         run: |
           echo "this is an error"
-          exit 1
+          false
     - name: Verify that the previous step failed
       if: steps.testerr.outcome != 'failure'
       run: |
@@ -565,13 +565,13 @@ jobs:
     - name: Test in DragonflyBSD
       id: testpass
       continue-on-error: true 
-      uses: vmactions/dragonflybsd-vm@ebb8a3451ddcf2671940fa6d862229b6b2744e08
+      uses: vmactions/dragonflybsd-vm@f5f91909e46784f08db2551b7c2222157e086c20
       with:
         usesh: true
         debug: true
         run: |
           echo "this is a normal command"
-          exit 0
+          true
     - name: Verify that the previous step succeeded
       if: steps.testpass.outcome != 'success'
       run: |
