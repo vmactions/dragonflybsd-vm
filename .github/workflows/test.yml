@@ -98,7 +98,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@5317596b68a44cff3d0d83f5824e557a84b72035
+      uses: vmactions/dragonflybsd-vm@df01706d4097e99b909e8c5b1ad64be42430fa75
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -223,7 +223,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@5317596b68a44cff3d0d83f5824e557a84b72035
+      uses: vmactions/dragonflybsd-vm@df01706d4097e99b909e8c5b1ad64be42430fa75
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -349,7 +349,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@5317596b68a44cff3d0d83f5824e557a84b72035
+      uses: vmactions/dragonflybsd-vm@df01706d4097e99b909e8c5b1ad64be42430fa75
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -469,7 +469,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@5317596b68a44cff3d0d83f5824e557a84b72035
+      uses: vmactions/dragonflybsd-vm@df01706d4097e99b909e8c5b1ad64be42430fa75
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -588,7 +588,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@5317596b68a44cff3d0d83f5824e557a84b72035
+      uses: vmactions/dragonflybsd-vm@df01706d4097e99b909e8c5b1ad64be42430fa75
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -650,7 +650,7 @@ jobs:
     - name: Test in DragonflyBSD
       id: testerr
       continue-on-error: true 
-      uses: vmactions/dragonflybsd-vm@5317596b68a44cff3d0d83f5824e557a84b72035
+      uses: vmactions/dragonflybsd-vm@df01706d4097e99b909e8c5b1ad64be42430fa75
       with:
         usesh: true
         debug: true
@@ -678,7 +678,7 @@ jobs:
     - name: Test in DragonflyBSD
       id: testpass
       continue-on-error: true 
-      uses: vmactions/dragonflybsd-vm@5317596b68a44cff3d0d83f5824e557a84b72035
+      uses: vmactions/dragonflybsd-vm@df01706d4097e99b909e8c5b1ad64be42430fa75
       with:
         usesh: true
         debug: true
