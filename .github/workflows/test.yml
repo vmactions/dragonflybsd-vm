@@ -98,7 +98,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@df01706d4097e99b909e8c5b1ad64be42430fa75
+      uses: vmactions/dragonflybsd-vm@04c4dcd7feb0870671979ca5347ffa476e83b218
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -113,6 +113,7 @@ jobs:
           udp:"8081": "80"
         usesh: true
         debug: true
+        debug-on-error: ${{ vars.DEBUG_ON_ERROR }}
         sync: sshfs
         run: |
           set -e
@@ -223,7 +224,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@df01706d4097e99b909e8c5b1ad64be42430fa75
+      uses: vmactions/dragonflybsd-vm@04c4dcd7feb0870671979ca5347ffa476e83b218
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -238,6 +239,7 @@ jobs:
           udp:"8081": "80"
         usesh: true
         debug: true
+        debug-on-error: ${{ vars.DEBUG_ON_ERROR }}
         sync: nfs
         run: |
           ls -lah $HOME/work
@@ -349,7 +351,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@df01706d4097e99b909e8c5b1ad64be42430fa75
+      uses: vmactions/dragonflybsd-vm@04c4dcd7feb0870671979ca5347ffa476e83b218
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -364,6 +366,7 @@ jobs:
           udp:"8081": "80"
         usesh: true
         debug: true
+        debug-on-error: ${{ vars.DEBUG_ON_ERROR }}
         sync: scp
         run: |
           ls -lah $HOME/work
@@ -469,7 +472,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@df01706d4097e99b909e8c5b1ad64be42430fa75
+      uses: vmactions/dragonflybsd-vm@04c4dcd7feb0870671979ca5347ffa476e83b218
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -484,6 +487,7 @@ jobs:
           udp:"8081": "80"
         usesh: true
         debug: true
+        debug-on-error: ${{ vars.DEBUG_ON_ERROR }}
         disable-cache: ${{ matrix.disableCache }}
         run: |
           env
@@ -588,7 +592,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ steps.check.outputs.run == 'true' }}
       id: test
-      uses: vmactions/dragonflybsd-vm@df01706d4097e99b909e8c5b1ad64be42430fa75
+      uses: vmactions/dragonflybsd-vm@04c4dcd7feb0870671979ca5347ffa476e83b218
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -603,6 +607,7 @@ jobs:
           udp:"8081": "80"
         usesh: true
         debug: true
+        debug-on-error: ${{ vars.DEBUG_ON_ERROR }}
         custom-shell-name: vmsh
         run: |
           env
@@ -650,7 +655,7 @@ jobs:
     - name: Test in DragonflyBSD
       id: testerr
       continue-on-error: true 
-      uses: vmactions/dragonflybsd-vm@df01706d4097e99b909e8c5b1ad64be42430fa75
+      uses: vmactions/dragonflybsd-vm@04c4dcd7feb0870671979ca5347ffa476e83b218
       with:
         usesh: true
         debug: true
@@ -678,7 +683,7 @@ jobs:
     - name: Test in DragonflyBSD
       id: testpass
       continue-on-error: true 
-      uses: vmactions/dragonflybsd-vm@df01706d4097e99b909e8c5b1ad64be42430fa75
+      uses: vmactions/dragonflybsd-vm@04c4dcd7feb0870671979ca5347ffa476e83b218
       with:
         usesh: true
         debug: true
