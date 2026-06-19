@@ -17,7 +17,7 @@ on:
 
 
 
-concurrency: 
+concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
@@ -25,19 +25,26 @@ concurrency:
 
 jobs:
   testsshfs:
-    if: ${{ !contains(github.repository, 'dragonflybsd') && !contains(github.repository, 'solaris') && !contains(github.repository, 'omnios') && !contains(github.repository, 'haiku') && !contains(github.repository, 'tribblix') && !contains(github.repository, 'blissos')}}
     strategy:
       fail-fast: false
       matrix:
         release: [ "6.4.1","6.4.2"
 , ""]
-        arch: [ "aarch64", "", "riscv64"]
+        arch: [ "aarch64", "", "riscv64", "powerpc64", "sparc64", "ppc64le", "s390x"]
         runs: [ "ubuntu-24.04", "ubuntu-24.04-arm"]
         exclude:
           - runs: "ubuntu-24.04-arm"
             arch: ""
           - runs: "ubuntu-24.04-arm"
             arch: "riscv64"
+          - runs: "ubuntu-24.04-arm"
+            arch: "powerpc64"
+          - runs: "ubuntu-24.04-arm"
+            arch: "sparc64"
+          - runs: "ubuntu-24.04-arm"
+            arch: "ppc64le"
+          - runs: "ubuntu-24.04-arm"
+            arch: "s390x"
           - arch: "aarch64"
             runs: "ubuntu-24.04"
           - arch: "aarch64"
@@ -56,39 +63,8 @@ jobs:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
     - uses: actions/checkout@v6
-    - name: Check arch
-      id: check
-      run: |
-        _release="${{ matrix.release }}"
-        if [ -z "$_release" ]; then
-          . conf/default.release.conf
-          _release="$DEFAULT_RELEASE"
-        fi
-
-        _arch="${{ matrix.arch }}"
-        if [ "${_arch}" = "x86_64" ]; then
-          _arch=""
-        fi
-
-        if [ -z "${_arch}" ]; then
-          #ok, go ahead
-          echo "arch is empty"
-          echo "run=true" >> $GITHUB_OUTPUT
-        elif [ -e "conf/${_release}-${_arch}.conf" ]; then
-          echo "conf exists: conf/${_release}-${_arch}.conf"
-          #ok, go ahead
-          if [[ "$(echo "DragonflyBSD" | tr '[:upper:]' '[:lower:]')-${_arch}" == "freebsd-riscv64" ]]; then
-            echo "The DragonflyBSD-${_arch} doesn't support sshfs, skip."
-            echo "run=false" >> $GITHUB_OUTPUT
-          else
-            echo "run=true" >> $GITHUB_OUTPUT
-          fi
-        else
-          echo "The release ${_release} doesn't support ${_arch}, skip."
-          echo "run=false" >> $GITHUB_OUTPUT
-        fi
 #    - name: Creating Web console
-#      if: ${{ steps.check.outputs.run == 'true' }}
+#      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'sshfs') }}
 #      uses: vmactions/cf-tunnel@v0
 #      id: tunnel
 #      with:
@@ -96,9 +72,9 @@ jobs:
 #        port: 8000
 
     - name: Test in DragonflyBSD
-      if: ${{ steps.check.outputs.run == 'true' }}
+      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'sshfs') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@d0c7f113e5cf6d58a3ecc61fb1b2cf3279f1d2aa
+      uses: vmactions/dragonflybsd-vm@96163b09b5c28a5eca49cae6289a890c7f375bdb
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -132,7 +108,7 @@ jobs:
           echo "OK"
 
     - name: Test NAT
-      if: ${{ steps.check.outputs.run == 'true' }}
+      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'sshfs') }}
       env:
         VM_USER: ""
       run: |
@@ -141,7 +117,7 @@ jobs:
         [ "$TEST_ENV" = "abc" ]
         ssh -v -p 20022 ${VM_USER:-root}@localhost  "uname -a;whoami;pwd"
     - name: Test custom shell
-      if: ${{ steps.check.outputs.run == 'true' }}
+      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'sshfs') }}
       shell: dragonflybsd {0}
       run: |
         pwd
@@ -158,19 +134,26 @@ jobs:
 
 
   testnfs:
-    if: ${{!contains(github.repository, 'haiku') && !contains(github.repository, 'blissos')}}
     strategy:
       fail-fast: false
       matrix:
         release: [ "6.4.1","6.4.2"
 , ""]
-        arch: [ "aarch64", "", "riscv64"]
+        arch: [ "aarch64", "", "riscv64", "powerpc64", "sparc64", "ppc64le", "s390x"]
         runs: [ "ubuntu-24.04", "ubuntu-24.04-arm"]
         exclude:
           - runs: "ubuntu-24.04-arm"
             arch: ""
           - runs: "ubuntu-24.04-arm"
             arch: "riscv64"
+          - runs: "ubuntu-24.04-arm"
+            arch: "powerpc64"
+          - runs: "ubuntu-24.04-arm"
+            arch: "sparc64"
+          - runs: "ubuntu-24.04-arm"
+            arch: "ppc64le"
+          - runs: "ubuntu-24.04-arm"
+            arch: "s390x"
           - arch: "aarch64"
             runs: "ubuntu-24.04"
           - arch: "aarch64"
@@ -189,42 +172,10 @@ jobs:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
     - uses: actions/checkout@v6
-    - name: Check arch
-      id: check
-      run: |
-        _release="${{ matrix.release }}"
-        if [ -z "$_release" ]; then
-          . conf/default.release.conf
-          _release="$DEFAULT_RELEASE"
-        fi
-
-        _arch="${{ matrix.arch }}"
-        if [ "${_arch}" = "x86_64" ]; then
-          _arch=""
-        fi
-
-        if [ -z "${_arch}" ]; then
-          #ok, go ahead
-          echo "arch is empty"
-          echo "run=true" >> $GITHUB_OUTPUT
-        elif [ -e "conf/${_release}-${_arch}.conf" ]; then
-          #ok, go ahead
-          echo "conf exists: conf/${_release}-${_arch}.conf"
-          if [[ "$(echo "DragonflyBSD" | tr '[:upper:]' '[:lower:]')-${_arch}" == "freebsd-riscv64" ]]; then
-            echo "The DragonflyBSD-${_arch} doesn't support nfs, skip."
-            echo "run=false" >> $GITHUB_OUTPUT
-          else
-            echo "run=true" >> $GITHUB_OUTPUT
-          fi
-        else
-          echo "The release ${_release} doesn't support ${_arch}, skip."
-          echo "run=false" >> $GITHUB_OUTPUT
-        fi
-
     - name: Test in DragonflyBSD
-      if: ${{ steps.check.outputs.run == 'true' }}
+      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'nfs') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@d0c7f113e5cf6d58a3ecc61fb1b2cf3279f1d2aa
+      uses: vmactions/dragonflybsd-vm@96163b09b5c28a5eca49cae6289a890c7f375bdb
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -258,7 +209,7 @@ jobs:
           echo "OK"
 
     - name: Test NAT
-      if: ${{ steps.check.outputs.run == 'true' }}
+      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'nfs') }}
       env:
         VM_USER: ""
       run: |
@@ -270,7 +221,7 @@ jobs:
         [ "$TEST_ENV" = "abc" ]
         ssh -v -p 20022 ${VM_USER:-root}@localhost "uname -a;whoami;pwd"
     - name: Test custom shell
-      if: ${{ steps.check.outputs.run == 'true' }}
+      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'nfs') }}
       shell: dragonflybsd {0}
       run: |
         pwd
@@ -290,13 +241,21 @@ jobs:
       matrix:
         release: [ "6.4.1","6.4.2"
 , ""]
-        arch: [ "aarch64", "", "riscv64"]
+        arch: [ "aarch64", "", "riscv64", "powerpc64", "sparc64", "ppc64le", "s390x"]
         runs: [ "ubuntu-24.04", "ubuntu-24.04-arm"]
         exclude:
           - runs: "ubuntu-24.04-arm"
             arch: ""
           - runs: "ubuntu-24.04-arm"
             arch: "riscv64"
+          - runs: "ubuntu-24.04-arm"
+            arch: "powerpc64"
+          - runs: "ubuntu-24.04-arm"
+            arch: "sparc64"
+          - runs: "ubuntu-24.04-arm"
+            arch: "ppc64le"
+          - runs: "ubuntu-24.04-arm"
+            arch: "s390x"
           - arch: "aarch64"
             runs: "ubuntu-24.04"
           - arch: "aarch64"
@@ -315,43 +274,17 @@ jobs:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
     - uses: actions/checkout@v6
-    - name: Check arch
-      id: check
-      run: |
-        _release="${{ matrix.release }}"
-        if [ -z "$_release" ]; then
-          . conf/default.release.conf
-          _release="$DEFAULT_RELEASE"
-        fi
-
-        _arch="${{ matrix.arch }}"
-        if [ "${_arch}" = "x86_64" ]; then
-          _arch=""
-        fi
-
-        if [ -z "${_arch}" ]; then
-          #ok, go ahead
-          echo "arch is empty"
-          echo "run=true" >> $GITHUB_OUTPUT
-        elif [ -e "conf/${_release}-${_arch}.conf" ]; then
-          #ok, go ahead
-          echo "conf exists: conf/${_release}-${_arch}.conf"
-          echo "run=true" >> $GITHUB_OUTPUT
-        else
-          echo "The release ${_release} doesn't support ${_arch}, skip."
-          echo "run=false" >> $GITHUB_OUTPUT
-        fi
 #    - name: Creating Web console
-#      if: ${{ steps.check.outputs.run == 'true' }}
+#      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'scp') }}
 #      uses: vmactions/cf-tunnel@v0
 #      id: tunnel
 #      with:
 #        protocol: http
 #        port: 8000
     - name: Test in DragonflyBSD
-      if: ${{ steps.check.outputs.run == 'true' }}
+      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'scp') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@d0c7f113e5cf6d58a3ecc61fb1b2cf3279f1d2aa
+      uses: vmactions/dragonflybsd-vm@96163b09b5c28a5eca49cae6289a890c7f375bdb
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -387,7 +320,7 @@ jobs:
           echo "OK"
 
     - name: Test files
-      if: ${{ steps.check.outputs.run == 'true' }}
+      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'scp') }}
       env:
         VM_USER: ""
       run: |
@@ -398,9 +331,6 @@ jobs:
         cat ${GITHUB_ENV}
         echo "TEST_ENV=$TEST_ENV";
         [ "$TEST_ENV" = "abc" ];
-        
-
-
 
 
 
@@ -412,7 +342,7 @@ jobs:
       matrix:
         release: [ "6.4.1","6.4.2"
 , ""]
-        arch: [ "aarch64", "", "riscv64"]
+        arch: [ "aarch64", "", "riscv64", "powerpc64", "sparc64", "ppc64le", "s390x"]
         runs: [ "ubuntu-24.04", "ubuntu-24.04-arm"]
         disableCache: [ "", "true"]
         exclude:
@@ -420,6 +350,14 @@ jobs:
             arch: ""
           - runs: "ubuntu-24.04-arm"
             arch: "riscv64"
+          - runs: "ubuntu-24.04-arm"
+            arch: "powerpc64"
+          - runs: "ubuntu-24.04-arm"
+            arch: "sparc64"
+          - runs: "ubuntu-24.04-arm"
+            arch: "ppc64le"
+          - runs: "ubuntu-24.04-arm"
+            arch: "s390x"
           - arch: "aarch64"
             runs: "ubuntu-24.04"
           - arch: "aarch64"
@@ -438,41 +376,10 @@ jobs:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
     - uses: actions/checkout@v6
-    - name: Check arch
-      id: check
-      run: |
-        _release="${{ matrix.release }}"
-        if [ -z "$_release" ]; then
-          . conf/default.release.conf
-          _release="$DEFAULT_RELEASE"
-        fi
-
-        _arch="${{ matrix.arch }}"
-        if [ "${_arch}" = "x86_64" ]; then
-          _arch=""
-        fi
-
-        if [ -z "${_arch}" ]; then
-          #ok, go ahead
-          echo "arch is empty"
-          echo "run=true" >> $GITHUB_OUTPUT
-        elif [ -e "conf/${_release}-${_arch}.conf" ]; then
-          #ok, go ahead
-          echo "conf exists: conf/${_release}-${_arch}.conf"
-          if [[ "$(echo "DragonflyBSD" | tr '[:upper:]' '[:lower:]')-${_arch}" == "freebsd-riscv64" ]]; then
-            echo "The DragonflyBSD-${_arch} doesn't support rsync, skip."
-            echo "run=false" >> $GITHUB_OUTPUT
-          else
-            echo "run=true" >> $GITHUB_OUTPUT
-          fi
-        else
-          echo "The release ${_release} doesn't support ${_arch}, skip."
-          echo "run=false" >> $GITHUB_OUTPUT
-        fi
     - name: Test in DragonflyBSD
-      if: ${{ steps.check.outputs.run == 'true' }}
+      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@d0c7f113e5cf6d58a3ecc61fb1b2cf3279f1d2aa
+      uses: vmactions/dragonflybsd-vm@96163b09b5c28a5eca49cae6289a890c7f375bdb
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -499,7 +406,7 @@ jobs:
           uname -a
           echo "OK"
     - name: Test NAT
-      if: ${{ steps.check.outputs.run == 'true' }}
+      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
       env:
         VM_USER: ""
       run: |
@@ -509,7 +416,7 @@ jobs:
         ssh -v  -p 20022 ${VM_USER:-root}@localhost  "uname -a;whoami;pwd"
 
     - name: Test custom shell
-      if: ${{ steps.check.outputs.run == 'true' }}
+      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
       shell: dragonflybsd {0}
       run: |
         pwd
@@ -526,20 +433,27 @@ jobs:
 
 
 
-
   testcustomshell:
     strategy:
       fail-fast: false
       matrix:
         release: [ "6.4.1","6.4.2"
 , ""]
-        arch: [ "aarch64", "", "riscv64"]
+        arch: [ "aarch64", "", "riscv64", "powerpc64", "sparc64", "ppc64le", "s390x"]
         runs: [ "ubuntu-24.04", "ubuntu-24.04-arm"]
         exclude:
           - runs: "ubuntu-24.04-arm"
             arch: ""
           - runs: "ubuntu-24.04-arm"
             arch: "riscv64"
+          - runs: "ubuntu-24.04-arm"
+            arch: "powerpc64"
+          - runs: "ubuntu-24.04-arm"
+            arch: "sparc64"
+          - runs: "ubuntu-24.04-arm"
+            arch: "ppc64le"
+          - runs: "ubuntu-24.04-arm"
+            arch: "s390x"
           - arch: "aarch64"
             runs: "ubuntu-24.04"
           - arch: "aarch64"
@@ -558,41 +472,10 @@ jobs:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
     - uses: actions/checkout@v6
-    - name: Check arch
-      id: check
-      run: |
-        _release="${{ matrix.release }}"
-        if [ -z "$_release" ]; then
-          . conf/default.release.conf
-          _release="$DEFAULT_RELEASE"
-        fi
-
-        _arch="${{ matrix.arch }}"
-        if [ "${_arch}" = "x86_64" ]; then
-          _arch=""
-        fi
-
-        if [ -z "${_arch}" ]; then
-          #ok, go ahead
-          echo "arch is empty"
-          echo "run=true" >> $GITHUB_OUTPUT
-        elif [ -e "conf/${_release}-${_arch}.conf" ]; then
-          #ok, go ahead
-          echo "conf exists: conf/${_release}-${_arch}.conf"
-          if [[ "$(echo "DragonflyBSD" | tr '[:upper:]' '[:lower:]')-${_arch}" == "freebsd-riscv64" ]]; then
-            echo "The DragonflyBSD-${_arch} doesn't support rsync, skip."
-            echo "run=false" >> $GITHUB_OUTPUT
-          else
-            echo "run=true" >> $GITHUB_OUTPUT
-          fi
-        else
-          echo "The release ${_release} doesn't support ${_arch}, skip."
-          echo "run=false" >> $GITHUB_OUTPUT
-        fi
     - name: Test in DragonflyBSD
-      if: ${{ steps.check.outputs.run == 'true' }}
+      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@d0c7f113e5cf6d58a3ecc61fb1b2cf3279f1d2aa
+      uses: vmactions/dragonflybsd-vm@96163b09b5c28a5eca49cae6289a890c7f375bdb
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -619,7 +502,7 @@ jobs:
           uname -a
           echo "OK"
     - name: Test NAT
-      if: ${{ steps.check.outputs.run == 'true' }}
+      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
       env:
         VM_USER: ""
       run: |
@@ -629,7 +512,7 @@ jobs:
         ssh -v  -p 20022 ${VM_USER:-root}@localhost  "uname -a;whoami;pwd"
 
     - name: Test custom shell
-      if: ${{ steps.check.outputs.run == 'true' }}
+      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
       shell: vmsh {0}
       run: |
         pwd
@@ -654,8 +537,8 @@ jobs:
     - uses: actions/checkout@v6
     - name: Test in DragonflyBSD
       id: testerr
-      continue-on-error: true 
-      uses: vmactions/dragonflybsd-vm@d0c7f113e5cf6d58a3ecc61fb1b2cf3279f1d2aa
+      continue-on-error: true
+      uses: vmactions/dragonflybsd-vm@96163b09b5c28a5eca49cae6289a890c7f375bdb
       with:
         usesh: true
         debug: true
@@ -682,8 +565,8 @@ jobs:
     - uses: actions/checkout@v6
     - name: Test in DragonflyBSD
       id: testpass
-      continue-on-error: true 
-      uses: vmactions/dragonflybsd-vm@d0c7f113e5cf6d58a3ecc61fb1b2cf3279f1d2aa
+      continue-on-error: true
+      uses: vmactions/dragonflybsd-vm@96163b09b5c28a5eca49cae6289a890c7f375bdb
       with:
         usesh: true
         debug: true
@@ -700,12 +583,3 @@ jobs:
       run: |
         echo "The step was expected to succeed, and it succeeded!"
         exit 0
-
-
-
-
-
-
-
-
-
