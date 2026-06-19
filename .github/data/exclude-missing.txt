@@ -1,0 +1,36 @@
+          - release: "6.4.1"
+            arch: aarch64
+          - release: "6.4.1"
+            arch: riscv64
+          - release: "6.4.1"
+            arch: powerpc64
+          - release: "6.4.1"
+            arch: sparc64
+          - release: "6.4.1"
+            arch: ppc64le
+          - release: "6.4.1"
+            arch: s390x
+          - release: "6.4.2"
+            arch: aarch64
+          - release: "6.4.2"
+            arch: riscv64
+          - release: "6.4.2"
+            arch: powerpc64
+          - release: "6.4.2"
+            arch: sparc64
+          - release: "6.4.2"
+            arch: ppc64le
+          - release: "6.4.2"
+            arch: s390x
+          - release: ""
+            arch: aarch64
+          - release: ""
+            arch: riscv64
+          - release: ""
+            arch: powerpc64
+          - release: ""
+            arch: sparc64
+          - release: ""
+            arch: ppc64le
+          - release: ""
+            arch: s390x

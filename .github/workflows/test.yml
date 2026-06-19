@@ -52,6 +52,42 @@ jobs:
           - arch: "riscv64"
             runs: "ubuntu-24.04"
 
+          - release: "6.4.1"
+            arch: aarch64
+          - release: "6.4.1"
+            arch: riscv64
+          - release: "6.4.1"
+            arch: powerpc64
+          - release: "6.4.1"
+            arch: sparc64
+          - release: "6.4.1"
+            arch: ppc64le
+          - release: "6.4.1"
+            arch: s390x
+          - release: "6.4.2"
+            arch: aarch64
+          - release: "6.4.2"
+            arch: riscv64
+          - release: "6.4.2"
+            arch: powerpc64
+          - release: "6.4.2"
+            arch: sparc64
+          - release: "6.4.2"
+            arch: ppc64le
+          - release: "6.4.2"
+            arch: s390x
+          - release: ""
+            arch: aarch64
+          - release: ""
+            arch: riscv64
+          - release: ""
+            arch: powerpc64
+          - release: ""
+            arch: sparc64
+          - release: ""
+            arch: ppc64le
+          - release: ""
+            arch: s390x
 
 
     runs-on: ${{ matrix.runs }}
@@ -64,7 +100,7 @@ jobs:
     steps:
     - uses: actions/checkout@v6
 #    - name: Creating Web console
-#      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'sshfs') }}
+#      if: ${{ contains(fromJSON('{"x86_64":[],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'sshfs') }}
 #      uses: vmactions/cf-tunnel@v0
 #      id: tunnel
 #      with:
@@ -72,9 +108,9 @@ jobs:
 #        port: 8000
 
     - name: Test in DragonflyBSD
-      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'sshfs') }}
+      if: ${{ contains(fromJSON('{"x86_64":[],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'sshfs') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@73f074a9d5faa9fe1dd99fb66269f8ed4db8b68c
+      uses: vmactions/dragonflybsd-vm@79b9de213c83fe84774619931bdb566d1a782e3a
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -108,7 +144,7 @@ jobs:
           echo "OK"
 
     - name: Test NAT
-      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'sshfs') }}
+      if: ${{ contains(fromJSON('{"x86_64":[],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'sshfs') }}
       env:
         VM_USER: ""
       run: |
@@ -117,7 +153,7 @@ jobs:
         [ "$TEST_ENV" = "abc" ]
         ssh -v -p 20022 ${VM_USER:-root}@localhost  "uname -a;whoami;pwd"
     - name: Test custom shell
-      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'sshfs') }}
+      if: ${{ contains(fromJSON('{"x86_64":[],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'sshfs') }}
       shell: dragonflybsd {0}
       run: |
         pwd
@@ -161,6 +197,42 @@ jobs:
           - arch: "riscv64"
             runs: "ubuntu-24.04"
 
+          - release: "6.4.1"
+            arch: aarch64
+          - release: "6.4.1"
+            arch: riscv64
+          - release: "6.4.1"
+            arch: powerpc64
+          - release: "6.4.1"
+            arch: sparc64
+          - release: "6.4.1"
+            arch: ppc64le
+          - release: "6.4.1"
+            arch: s390x
+          - release: "6.4.2"
+            arch: aarch64
+          - release: "6.4.2"
+            arch: riscv64
+          - release: "6.4.2"
+            arch: powerpc64
+          - release: "6.4.2"
+            arch: sparc64
+          - release: "6.4.2"
+            arch: ppc64le
+          - release: "6.4.2"
+            arch: s390x
+          - release: ""
+            arch: aarch64
+          - release: ""
+            arch: riscv64
+          - release: ""
+            arch: powerpc64
+          - release: ""
+            arch: sparc64
+          - release: ""
+            arch: ppc64le
+          - release: ""
+            arch: s390x
 
 
     runs-on: ${{ matrix.runs }}
@@ -173,9 +245,9 @@ jobs:
     steps:
     - uses: actions/checkout@v6
     - name: Test in DragonflyBSD
-      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'nfs') }}
+      if: ${{ contains(fromJSON('{"x86_64":[],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'nfs') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@73f074a9d5faa9fe1dd99fb66269f8ed4db8b68c
+      uses: vmactions/dragonflybsd-vm@79b9de213c83fe84774619931bdb566d1a782e3a
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -209,7 +281,7 @@ jobs:
           echo "OK"
 
     - name: Test NAT
-      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'nfs') }}
+      if: ${{ contains(fromJSON('{"x86_64":[],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'nfs') }}
       env:
         VM_USER: ""
       run: |
@@ -221,7 +293,7 @@ jobs:
         [ "$TEST_ENV" = "abc" ]
         ssh -v -p 20022 ${VM_USER:-root}@localhost "uname -a;whoami;pwd"
     - name: Test custom shell
-      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'nfs') }}
+      if: ${{ contains(fromJSON('{"x86_64":[],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'nfs') }}
       shell: dragonflybsd {0}
       run: |
         pwd
@@ -263,6 +335,42 @@ jobs:
           - arch: "riscv64"
             runs: "ubuntu-24.04"
 
+          - release: "6.4.1"
+            arch: aarch64
+          - release: "6.4.1"
+            arch: riscv64
+          - release: "6.4.1"
+            arch: powerpc64
+          - release: "6.4.1"
+            arch: sparc64
+          - release: "6.4.1"
+            arch: ppc64le
+          - release: "6.4.1"
+            arch: s390x
+          - release: "6.4.2"
+            arch: aarch64
+          - release: "6.4.2"
+            arch: riscv64
+          - release: "6.4.2"
+            arch: powerpc64
+          - release: "6.4.2"
+            arch: sparc64
+          - release: "6.4.2"
+            arch: ppc64le
+          - release: "6.4.2"
+            arch: s390x
+          - release: ""
+            arch: aarch64
+          - release: ""
+            arch: riscv64
+          - release: ""
+            arch: powerpc64
+          - release: ""
+            arch: sparc64
+          - release: ""
+            arch: ppc64le
+          - release: ""
+            arch: s390x
 
 
     runs-on: ${{ matrix.runs }}
@@ -275,16 +383,16 @@ jobs:
     steps:
     - uses: actions/checkout@v6
 #    - name: Creating Web console
-#      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'scp') }}
+#      if: ${{ contains(fromJSON('{"x86_64":[],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'scp') }}
 #      uses: vmactions/cf-tunnel@v0
 #      id: tunnel
 #      with:
 #        protocol: http
 #        port: 8000
     - name: Test in DragonflyBSD
-      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'scp') }}
+      if: ${{ contains(fromJSON('{"x86_64":[],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'scp') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@73f074a9d5faa9fe1dd99fb66269f8ed4db8b68c
+      uses: vmactions/dragonflybsd-vm@79b9de213c83fe84774619931bdb566d1a782e3a
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -320,7 +428,7 @@ jobs:
           echo "OK"
 
     - name: Test files
-      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'scp') }}
+      if: ${{ contains(fromJSON('{"x86_64":[],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'scp') }}
       env:
         VM_USER: ""
       run: |
@@ -365,6 +473,42 @@ jobs:
           - arch: "riscv64"
             runs: "ubuntu-24.04"
 
+          - release: "6.4.1"
+            arch: aarch64
+          - release: "6.4.1"
+            arch: riscv64
+          - release: "6.4.1"
+            arch: powerpc64
+          - release: "6.4.1"
+            arch: sparc64
+          - release: "6.4.1"
+            arch: ppc64le
+          - release: "6.4.1"
+            arch: s390x
+          - release: "6.4.2"
+            arch: aarch64
+          - release: "6.4.2"
+            arch: riscv64
+          - release: "6.4.2"
+            arch: powerpc64
+          - release: "6.4.2"
+            arch: sparc64
+          - release: "6.4.2"
+            arch: ppc64le
+          - release: "6.4.2"
+            arch: s390x
+          - release: ""
+            arch: aarch64
+          - release: ""
+            arch: riscv64
+          - release: ""
+            arch: powerpc64
+          - release: ""
+            arch: sparc64
+          - release: ""
+            arch: ppc64le
+          - release: ""
+            arch: s390x
 
 
 
@@ -377,9 +521,9 @@ jobs:
     steps:
     - uses: actions/checkout@v6
     - name: Test in DragonflyBSD
-      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
+      if: ${{ contains(fromJSON('{"x86_64":[],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@73f074a9d5faa9fe1dd99fb66269f8ed4db8b68c
+      uses: vmactions/dragonflybsd-vm@79b9de213c83fe84774619931bdb566d1a782e3a
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -406,7 +550,7 @@ jobs:
           uname -a
           echo "OK"
     - name: Test NAT
-      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
+      if: ${{ contains(fromJSON('{"x86_64":[],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
       env:
         VM_USER: ""
       run: |
@@ -416,7 +560,7 @@ jobs:
         ssh -v  -p 20022 ${VM_USER:-root}@localhost  "uname -a;whoami;pwd"
 
     - name: Test custom shell
-      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
+      if: ${{ contains(fromJSON('{"x86_64":[],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
       shell: dragonflybsd {0}
       run: |
         pwd
@@ -461,6 +605,42 @@ jobs:
           - arch: "riscv64"
             runs: "ubuntu-24.04"
 
+          - release: "6.4.1"
+            arch: aarch64
+          - release: "6.4.1"
+            arch: riscv64
+          - release: "6.4.1"
+            arch: powerpc64
+          - release: "6.4.1"
+            arch: sparc64
+          - release: "6.4.1"
+            arch: ppc64le
+          - release: "6.4.1"
+            arch: s390x
+          - release: "6.4.2"
+            arch: aarch64
+          - release: "6.4.2"
+            arch: riscv64
+          - release: "6.4.2"
+            arch: powerpc64
+          - release: "6.4.2"
+            arch: sparc64
+          - release: "6.4.2"
+            arch: ppc64le
+          - release: "6.4.2"
+            arch: s390x
+          - release: ""
+            arch: aarch64
+          - release: ""
+            arch: riscv64
+          - release: ""
+            arch: powerpc64
+          - release: ""
+            arch: sparc64
+          - release: ""
+            arch: ppc64le
+          - release: ""
+            arch: s390x
 
 
 
@@ -473,9 +653,9 @@ jobs:
     steps:
     - uses: actions/checkout@v6
     - name: Test in DragonflyBSD
-      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
+      if: ${{ contains(fromJSON('{"x86_64":[],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@73f074a9d5faa9fe1dd99fb66269f8ed4db8b68c
+      uses: vmactions/dragonflybsd-vm@79b9de213c83fe84774619931bdb566d1a782e3a
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -502,7 +682,7 @@ jobs:
           uname -a
           echo "OK"
     - name: Test NAT
-      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
+      if: ${{ contains(fromJSON('{"x86_64":[],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
       env:
         VM_USER: ""
       run: |
@@ -512,7 +692,7 @@ jobs:
         ssh -v  -p 20022 ${VM_USER:-root}@localhost  "uname -a;whoami;pwd"
 
     - name: Test custom shell
-      if: ${{ contains(fromJSON('')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
+      if: ${{ contains(fromJSON('{"x86_64":[],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
       shell: vmsh {0}
       run: |
         pwd
@@ -538,7 +718,7 @@ jobs:
     - name: Test in DragonflyBSD
       id: testerr
       continue-on-error: true
-      uses: vmactions/dragonflybsd-vm@73f074a9d5faa9fe1dd99fb66269f8ed4db8b68c
+      uses: vmactions/dragonflybsd-vm@79b9de213c83fe84774619931bdb566d1a782e3a
       with:
         usesh: true
         debug: true
@@ -566,7 +746,7 @@ jobs:
     - name: Test in DragonflyBSD
       id: testpass
       continue-on-error: true
-      uses: vmactions/dragonflybsd-vm@73f074a9d5faa9fe1dd99fb66269f8ed4db8b68c
+      uses: vmactions/dragonflybsd-vm@79b9de213c83fe84774619931bdb566d1a782e3a
       with:
         usesh: true
         debug: true
