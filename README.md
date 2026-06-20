@@ -19,9 +19,9 @@ All the supported releases are here:
 
 | Release | x86_64(amd64)  |
 |---------|---------|
-| 6.4.0   |  ✅     |
-| 6.4.1   |  ✅     |
-| 6.4.2   |  ✅     |
+| 6.4.0   |  ✅ (rsync,scp,sshfs,nfs)     |
+| 6.4.1   |  ✅ (rsync,scp,sshfs,nfs)     |
+| 6.4.2   |  ✅ (rsync,scp,sshfs,nfs)     |
 
 
 
