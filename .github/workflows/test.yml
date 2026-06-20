@@ -104,7 +104,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","sshfs","nfs"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'sshfs') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@e1de5a51135999639c1e7adbec85611a738fa5d5
+      uses: vmactions/dragonflybsd-vm@9c9e406bcee3f0c0c2c8e31ff7ca3fc3d34d5ddc
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -235,7 +235,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","sshfs","nfs"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'nfs') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@e1de5a51135999639c1e7adbec85611a738fa5d5
+      uses: vmactions/dragonflybsd-vm@9c9e406bcee3f0c0c2c8e31ff7ca3fc3d34d5ddc
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -374,7 +374,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","sshfs","nfs"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'scp') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@e1de5a51135999639c1e7adbec85611a738fa5d5
+      uses: vmactions/dragonflybsd-vm@9c9e406bcee3f0c0c2c8e31ff7ca3fc3d34d5ddc
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -499,7 +499,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","sshfs","nfs"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@e1de5a51135999639c1e7adbec85611a738fa5d5
+      uses: vmactions/dragonflybsd-vm@9c9e406bcee3f0c0c2c8e31ff7ca3fc3d34d5ddc
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -625,7 +625,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","sshfs","nfs"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@e1de5a51135999639c1e7adbec85611a738fa5d5
+      uses: vmactions/dragonflybsd-vm@9c9e406bcee3f0c0c2c8e31ff7ca3fc3d34d5ddc
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -688,7 +688,7 @@ jobs:
     - name: Test in DragonflyBSD
       id: testerr
       continue-on-error: true
-      uses: vmactions/dragonflybsd-vm@e1de5a51135999639c1e7adbec85611a738fa5d5
+      uses: vmactions/dragonflybsd-vm@9c9e406bcee3f0c0c2c8e31ff7ca3fc3d34d5ddc
       with:
         usesh: true
         debug: true
@@ -716,7 +716,7 @@ jobs:
     - name: Test in DragonflyBSD
       id: testpass
       continue-on-error: true
-      uses: vmactions/dragonflybsd-vm@e1de5a51135999639c1e7adbec85611a738fa5d5
+      uses: vmactions/dragonflybsd-vm@9c9e406bcee3f0c0c2c8e31ff7ca3fc3d34d5ddc
       with:
         usesh: true
         debug: true
