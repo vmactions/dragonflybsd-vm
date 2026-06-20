@@ -1,3 +1,15 @@
+          - release: "6.4.0"
+            arch: aarch64
+          - release: "6.4.0"
+            arch: riscv64
+          - release: "6.4.0"
+            arch: powerpc64
+          - release: "6.4.0"
+            arch: sparc64
+          - release: "6.4.0"
+            arch: ppc64le
+          - release: "6.4.0"
+            arch: s390x
           - release: "6.4.1"
             arch: aarch64
           - release: "6.4.1"
