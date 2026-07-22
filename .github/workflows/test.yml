@@ -118,7 +118,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'sshfs') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@9f6d9d87e81c01198810fe7ee18f9262665d03a0
+      uses: vmactions/dragonflybsd-vm@3bd824d48513cf4a7eff194f02ca4b4ac6147a2f
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -284,7 +284,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'nfs') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@9f6d9d87e81c01198810fe7ee18f9262665d03a0
+      uses: vmactions/dragonflybsd-vm@3bd824d48513cf4a7eff194f02ca4b4ac6147a2f
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -458,7 +458,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'scp') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@9f6d9d87e81c01198810fe7ee18f9262665d03a0
+      uses: vmactions/dragonflybsd-vm@3bd824d48513cf4a7eff194f02ca4b4ac6147a2f
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -637,7 +637,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@9f6d9d87e81c01198810fe7ee18f9262665d03a0
+      uses: vmactions/dragonflybsd-vm@3bd824d48513cf4a7eff194f02ca4b4ac6147a2f
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -798,7 +798,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@9f6d9d87e81c01198810fe7ee18f9262665d03a0
+      uses: vmactions/dragonflybsd-vm@3bd824d48513cf4a7eff194f02ca4b4ac6147a2f
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -918,7 +918,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')['x86_64'], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@9f6d9d87e81c01198810fe7ee18f9262665d03a0
+      uses: vmactions/dragonflybsd-vm@3bd824d48513cf4a7eff194f02ca4b4ac6147a2f
       with:
         mem: 4096
         usesh: true
@@ -979,7 +979,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[]}')['x86_64'], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@9f6d9d87e81c01198810fe7ee18f9262665d03a0
+      uses: vmactions/dragonflybsd-vm@3bd824d48513cf4a7eff194f02ca4b4ac6147a2f
       with:
         mem: 4096
         usesh: true
@@ -1041,7 +1041,7 @@ jobs:
     - name: Test in DragonflyBSD
       id: testerr
       continue-on-error: true
-      uses: vmactions/dragonflybsd-vm@9f6d9d87e81c01198810fe7ee18f9262665d03a0
+      uses: vmactions/dragonflybsd-vm@3bd824d48513cf4a7eff194f02ca4b4ac6147a2f
       with:
         usesh: true
         debug: true
@@ -1069,7 +1069,7 @@ jobs:
     - name: Test in DragonflyBSD
       id: testpass
       continue-on-error: true
-      uses: vmactions/dragonflybsd-vm@9f6d9d87e81c01198810fe7ee18f9262665d03a0
+      uses: vmactions/dragonflybsd-vm@3bd824d48513cf4a7eff194f02ca4b4ac6147a2f
       with:
         usesh: true
         debug: true
