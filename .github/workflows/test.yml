@@ -136,7 +136,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[],"i386":[],"loongarch64":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'sshfs') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@07fba328bf2a9d8c25217f183215dd2d59ede0e3
+      uses: vmactions/dragonflybsd-vm@38f92ba55091c7e5ad992ace6f7d1fc2e1b8ae53
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -320,7 +320,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[],"i386":[],"loongarch64":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'nfs') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@07fba328bf2a9d8c25217f183215dd2d59ede0e3
+      uses: vmactions/dragonflybsd-vm@38f92ba55091c7e5ad992ace6f7d1fc2e1b8ae53
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -512,7 +512,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[],"i386":[],"loongarch64":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'scp') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@07fba328bf2a9d8c25217f183215dd2d59ede0e3
+      uses: vmactions/dragonflybsd-vm@38f92ba55091c7e5ad992ace6f7d1fc2e1b8ae53
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -709,7 +709,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[],"i386":[],"loongarch64":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@07fba328bf2a9d8c25217f183215dd2d59ede0e3
+      uses: vmactions/dragonflybsd-vm@38f92ba55091c7e5ad992ace6f7d1fc2e1b8ae53
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -888,7 +888,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[],"i386":[],"loongarch64":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@07fba328bf2a9d8c25217f183215dd2d59ede0e3
+      uses: vmactions/dragonflybsd-vm@38f92ba55091c7e5ad992ace6f7d1fc2e1b8ae53
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -1008,7 +1008,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[],"i386":[],"loongarch64":[]}')['x86_64'], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@07fba328bf2a9d8c25217f183215dd2d59ede0e3
+      uses: vmactions/dragonflybsd-vm@38f92ba55091c7e5ad992ace6f7d1fc2e1b8ae53
       with:
         mem: 4096
         usesh: true
@@ -1069,7 +1069,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[],"i386":[],"loongarch64":[]}')['x86_64'], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@07fba328bf2a9d8c25217f183215dd2d59ede0e3
+      uses: vmactions/dragonflybsd-vm@38f92ba55091c7e5ad992ace6f7d1fc2e1b8ae53
       with:
         mem: 4096
         usesh: true
@@ -1131,7 +1131,7 @@ jobs:
     - name: Test in DragonflyBSD
       id: testerr
       continue-on-error: true
-      uses: vmactions/dragonflybsd-vm@07fba328bf2a9d8c25217f183215dd2d59ede0e3
+      uses: vmactions/dragonflybsd-vm@38f92ba55091c7e5ad992ace6f7d1fc2e1b8ae53
       with:
         usesh: true
         debug: true
@@ -1159,7 +1159,7 @@ jobs:
     - name: Test in DragonflyBSD
       id: testpass
       continue-on-error: true
-      uses: vmactions/dragonflybsd-vm@07fba328bf2a9d8c25217f183215dd2d59ede0e3
+      uses: vmactions/dragonflybsd-vm@38f92ba55091c7e5ad992ace6f7d1fc2e1b8ae53
       with:
         usesh: true
         debug: true
