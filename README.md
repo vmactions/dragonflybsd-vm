@@ -225,6 +225,19 @@ It uses [the DragonflyBSD 6.4.2](conf/default.release.conf) by default, you can 
 ...
 ```
 
+You can also give only the leading, `.` separated part of a release. The newest release that starts with it is used, so the workflow does not have to be edited for every point release:
+
+```yaml
+...
+    - name: Test
+      id: test
+      uses: vmactions/dragonflybsd-vm@v1
+      with:
+        release: "6"
+...
+```
+
+Here `release: "6"` runs the newest `6.x` release of DragonflyBSD. Give more parts to narrow it down: `release: "6.4"` runs the newest `6.4.x`. Each part you give has to match in full, so a release that does not exist fails the job instead of quietly falling back to another one.
 
 ## 6. Select architecture
 
