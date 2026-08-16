@@ -14,6 +14,8 @@
             arch: i386
           - release: "6.4.0"
             arch: loongarch64
+          - release: "6.4.0"
+            arch: armv7
           - release: "6.4.1"
             arch: aarch64
           - release: "6.4.1"
@@ -30,6 +32,8 @@
             arch: i386
           - release: "6.4.1"
             arch: loongarch64
+          - release: "6.4.1"
+            arch: armv7
           - release: "6.4.2"
             arch: aarch64
           - release: "6.4.2"
@@ -46,6 +50,8 @@
             arch: i386
           - release: "6.4.2"
             arch: loongarch64
+          - release: "6.4.2"
+            arch: armv7
           - release: ""
             arch: aarch64
           - release: ""
@@ -62,3 +68,5 @@
             arch: i386
           - release: ""
             arch: loongarch64
+          - release: ""
+            arch: armv7
