@@ -1,0 +1,8 @@
+          - release: "6.4.0"
+            arch: ""
+          - release: "6.4.1"
+            arch: ""
+          - release: "6.4.2"
+            arch: ""
+          - release: ""
+            arch: ""
