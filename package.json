@@ -1,6 +1,6 @@
 {
   "name": "vmactions-DragonflyBSD",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "GitHub actions for DragonflyBSD",
   "type": "module",
   "main": "index.js",
