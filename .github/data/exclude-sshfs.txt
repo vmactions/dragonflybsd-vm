@@ -4,5 +4,3 @@
             arch: ""
           - release: "6.4.2"
             arch: ""
-          - release: ""
-            arch: ""
