@@ -151,7 +151,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs","tar"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[],"i386":[],"loongarch64":[],"armv7":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'sshfs') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@3bf005863509ce965ca6724379a84eca6b6912fb
+      uses: vmactions/dragonflybsd-vm@2f2442dfd2208ea6840751b63c701c0720eb70fa
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -333,7 +333,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs","tar"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[],"i386":[],"loongarch64":[],"armv7":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'nfs') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@3bf005863509ce965ca6724379a84eca6b6912fb
+      uses: vmactions/dragonflybsd-vm@2f2442dfd2208ea6840751b63c701c0720eb70fa
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -574,7 +574,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs","tar"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[],"i386":[],"loongarch64":[],"armv7":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'scp') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@3bf005863509ce965ca6724379a84eca6b6912fb
+      uses: vmactions/dragonflybsd-vm@2f2442dfd2208ea6840751b63c701c0720eb70fa
       with:
         envs: 'DEBUG MYTOKEN MYTOKEN2'
         prepare: |
@@ -704,7 +704,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains('{"x86_64":["rsync","scp","nfs","tar"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[],"i386":[],"loongarch64":[],"armv7":[]}', 'tar') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@3bf005863509ce965ca6724379a84eca6b6912fb
+      uses: vmactions/dragonflybsd-vm@2f2442dfd2208ea6840751b63c701c0720eb70fa
       with:
         mem: 4096
         debug: true
@@ -771,7 +771,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains('{"x86_64":["rsync","scp","nfs","tar"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[],"i386":[],"loongarch64":[],"armv7":[]}', '9p') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@3bf005863509ce965ca6724379a84eca6b6912fb
+      uses: vmactions/dragonflybsd-vm@2f2442dfd2208ea6840751b63c701c0720eb70fa
       with:
         mem: 4096
         debug: true
@@ -909,7 +909,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs","tar"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[],"i386":[],"loongarch64":[],"armv7":[]}')[matrix.arch == '' && 'x86_64' || matrix.arch], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@3bf005863509ce965ca6724379a84eca6b6912fb
+      uses: vmactions/dragonflybsd-vm@2f2442dfd2208ea6840751b63c701c0720eb70fa
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -1000,7 +1000,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs","tar"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[],"i386":[],"loongarch64":[],"armv7":[]}')['x86_64'], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@3bf005863509ce965ca6724379a84eca6b6912fb
+      uses: vmactions/dragonflybsd-vm@2f2442dfd2208ea6840751b63c701c0720eb70fa
       with:
         prepare: |
           pkg install -y socat
@@ -1098,7 +1098,7 @@ jobs:
         sparse-checkout-cone-mode: true
     - name: Test in DragonflyBSD
       id: test
-      uses: vmactions/dragonflybsd-vm@3bf005863509ce965ca6724379a84eca6b6912fb
+      uses: vmactions/dragonflybsd-vm@2f2442dfd2208ea6840751b63c701c0720eb70fa
       with:
         arch: ${{ matrix.arch }}
         debug: true
@@ -1146,7 +1146,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs","tar"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[],"i386":[],"loongarch64":[],"armv7":[]}')['x86_64'], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@3bf005863509ce965ca6724379a84eca6b6912fb
+      uses: vmactions/dragonflybsd-vm@2f2442dfd2208ea6840751b63c701c0720eb70fa
       with:
         envs: 'MYTOKEN MYTOKEN2'
         prepare: |
@@ -1263,7 +1263,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs","tar"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[],"i386":[],"loongarch64":[],"armv7":[]}')['x86_64'], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@3bf005863509ce965ca6724379a84eca6b6912fb
+      uses: vmactions/dragonflybsd-vm@2f2442dfd2208ea6840751b63c701c0720eb70fa
       with:
         mem: 4096
         debug: true
@@ -1323,7 +1323,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs","tar"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[],"i386":[],"loongarch64":[],"armv7":[]}')['x86_64'], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@3bf005863509ce965ca6724379a84eca6b6912fb
+      uses: vmactions/dragonflybsd-vm@2f2442dfd2208ea6840751b63c701c0720eb70fa
       with:
         mem: 4096
         debug: true
@@ -1401,7 +1401,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs","tar"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[],"i386":[],"loongarch64":[],"armv7":[]}')['x86_64'], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@3bf005863509ce965ca6724379a84eca6b6912fb
+      uses: vmactions/dragonflybsd-vm@2f2442dfd2208ea6840751b63c701c0720eb70fa
       with:
         mem: 4096
         debug: true
@@ -1460,7 +1460,7 @@ jobs:
     - name: Test in DragonflyBSD
       if: ${{ contains(fromJSON('{"x86_64":["rsync","scp","nfs","tar"],"aarch64":[],"riscv64":[],"powerpc64":[],"sparc64":[],"ppc64le":[],"s390x":[],"i386":[],"loongarch64":[],"armv7":[]}')['x86_64'], 'rsync') }}
       id: test
-      uses: vmactions/dragonflybsd-vm@3bf005863509ce965ca6724379a84eca6b6912fb
+      uses: vmactions/dragonflybsd-vm@2f2442dfd2208ea6840751b63c701c0720eb70fa
       with:
         mem: 4096
         debug: true
@@ -1532,7 +1532,7 @@ jobs:
     - name: Test in DragonflyBSD
       id: testerr
       continue-on-error: true
-      uses: vmactions/dragonflybsd-vm@3bf005863509ce965ca6724379a84eca6b6912fb
+      uses: vmactions/dragonflybsd-vm@2f2442dfd2208ea6840751b63c701c0720eb70fa
       with:
         debug: true
         # A command that EXISTS and fails, rather than `false` or a made-up
@@ -1578,7 +1578,7 @@ jobs:
     - name: Test in DragonflyBSD
       id: testpass
       continue-on-error: true
-      uses: vmactions/dragonflybsd-vm@3bf005863509ce965ca6724379a84eca6b6912fb
+      uses: vmactions/dragonflybsd-vm@2f2442dfd2208ea6840751b63c701c0720eb70fa
       with:
         debug: true
         # No `true` and no double quotes: this body runs on every guest, and
