@@ -53,8 +53,9 @@ Each image is built automatically in the
 [anyvm-org/dragonflybsd-builder](https://github.com/anyvm-org/dragonflybsd-builder)
 repo's GitHub Actions: it downloads the official DragonFly BSD installer
 ISO, boots it in QEMU, runs the installation unattended, enables ssh,
-pre-installs the packages listed in the conf, and exports the installed
-disk as a compressed qcow2 image.
+upgrades the packages that came with the ISO to the current dports set
+(`pkg upgrade`), pre-installs the packages listed in the conf, and exports
+the installed disk as a compressed qcow2 image.
 
 Upstream install media: the official DragonFly BSD ISOs from
 https://mirror-master.dragonflybsd.org/iso-images/ (download page:
@@ -103,7 +104,7 @@ jobs:
 ```
 
 
-The latest major version is: `v1`, which is the most recommended to use. (You can also use the latest full version: `v1.3.4`)  
+The latest major version is: `v1`, which is the most recommended to use. (You can also use the latest full version: `v1.3.5`)  
 
 
 If you are migrating from the previous `v0`, please change the `runs-on: ` to `runs-on: ubuntu-latest`
